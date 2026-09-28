@@ -1,6 +1,6 @@
 # Evaluation notes
 
-The following comparisons are proposed work. No participant results are reported here, and the repository does not yet provide a controlled experiment runner. The aim is to separate source accuracy, presentation behavior and the user's experience of being recognized.
+In the [prepared video](DEMO.md), Duck connects a recalled encounter with a playful gesture. Would the same words feel different without that gesture? Would an accurate reference still feel appropriate if the user wanted to change the subject? The comparisons below develop these questions into proposed studies. No participant results or controlled experiment runner are included in this release.
 
 ## Questions and comparisons
 
@@ -15,7 +15,7 @@ The current memory toggle also removes prior dialogue from generation context. C
 
 ## Evidence to collect
 
-For software behavior, retain the input, available and cited sources, output, selected action, playback outcome, configuration and revision. Review whether a citation is faithful to its source and whether a boundary is respected. Report failures and retries alongside successful runs.
+Save each input and reply alongside its available memories, cited sources and selected action. Include the playback outcome and enough configuration information to reproduce the run. Check whether the reply is faithful to its source and respects an explicit boundary. Keep failures and retries in the record.
 
 For user experience, select measures of perceived recognition, appropriateness, intrusiveness and willingness to continue the interaction. Explain how the measures are operationalized and use suitable established instruments where available. Brief post-interaction interviews can help distinguish “it recalled a fact” from “the response felt personally meaningful.” Do not label newly drafted questions as a validated scale.
 
@@ -29,4 +29,4 @@ Specify the primary question and outcome, participant tasks, condition assignmen
 
 The next useful steps are to preserve inspectable evidence from real autonomous runs, implement matched comparison controls, and separate user evidence from the assistant's own wording in personality updates. Persistent boundary handling should be tested separately from the current refusal guard, which checks the current input and bounded recent history. These changes would make the prototype easier to evaluate before expanding the renderer to 3D.
 
-Relevant research context and implementation details are in [Agent systems and research questions](AGENT_SYSTEMS.md). The [walkthrough](AUTONOMOUS_WALKTHROUGH.md) can be used now to document software behavior without implying that the proposed studies have been completed.
+These questions relate to work on how people perceive conversational agents' knowledge and familiarity, including the studies discussed in [Agent systems and research questions](AGENT_SYSTEMS.md). CARROT DUCK focuses on personal recollection and its timing. The [walkthrough](AUTONOMOUS_WALKTHROUGH.md) provides a starting point for checking the implementation before collecting participant reports.

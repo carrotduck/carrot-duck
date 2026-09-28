@@ -8,7 +8,7 @@ I developed CARROT DUCK to explore when an AI companion's recollection feels per
 
 This repository is a runnable research prototype, with backend source and a small local interface for autonomous conversation. Follow the setup instructions below to run it with your own provider credentials. The full hosted application is at [carrotduck.online](https://carrotduck.online/); its accounts and data are separate from a local installation.
 
-To review the project, start with the video below, then read [how the agent systems work](docs/AGENT_SYSTEMS.md). The [autonomous walkthrough](docs/AUTONOMOUS_WALKTHROUGH.md) provides two reproducible scenarios for inspecting memory use and refusal handling. [Evaluation notes](docs/EVALUATION.md) outline the comparisons needed to investigate user experience.
+Start with the video below. [From the video to the current prototype](docs/DEMO.md#from-the-video-to-the-current-prototype) connects the recorded exchange to steps you can run locally and questions for a future study. The [system notes](docs/AGENT_SYSTEMS.md) explain personality adaptation, affective confidence and relationship policies.
 
 ## Demonstration
 
@@ -45,7 +45,7 @@ The source includes the dialogue service, memory retrieval, relationship and bou
 
 The local interface opens the autonomous interaction mode. It retrieves eligible memories from the current account, generates a reply and a bounded performance plan, and shows the records cited by the model. The plan combines a gesture with a facial expression and an optional change to the character's ears. Browser playback reports can inform the next turn. Daily conversation uses smaller movements than the performance setting.
 
-The project brings memory retrieval and character performance into an inspectable interaction loop. It supports examining how the timing and presentation of a recalled detail may affect a user's experience of recognition. See [Architecture](docs/ARCHITECTURE.md) for the autonomous path and the wider research services.
+For each autonomous reply, a reviewer can compare the cited memory with the generated wording and selected gesture. This helps identify a correct recollection presented awkwardly, or an expressive reply that misreads its source. See [Architecture](docs/ARCHITECTURE.md) for the autonomous path and the wider research services.
 
 ## Duck as the character example
 
