@@ -8,6 +8,8 @@ I developed CARROT DUCK to explore when an AI companion's recollection feels per
 
 This repository is a runnable research prototype, with backend source and a small local interface for autonomous conversation. Follow the setup instructions below to run it with your own provider credentials. The full hosted application is at [carrotduck.online](https://carrotduck.online/); its accounts and data are separate from a local installation.
 
+To review the project, start with the video below, then read [how the agent systems work](docs/AGENT_SYSTEMS.md). The [autonomous walkthrough](docs/AUTONOMOUS_WALKTHROUGH.md) provides two reproducible scenarios for inspecting memory use and refusal handling. [Evaluation notes](docs/EVALUATION.md) outline the comparisons needed to investigate user experience.
+
 ## Demonstration
 
 <a href="https://youtu.be/8uiZaVtBBH4"><img src="docs/images/watch-youtube.svg" alt="▶ Watch on YouTube" width="183" height="36"></a>

@@ -8,6 +8,10 @@ The later autonomous mode uses account-scoped retrieval and generated dialogue. 
 
 The public repository provides a smaller local interface for running this path. The video remains the reference for the deployed application's broader interface. A reproduction with another licensed model will differ visually from the recording.
 
+## Inspect the current autonomous path
+
+Follow the [autonomous walkthrough](AUTONOMOUS_WALKTHROUGH.md) to inspect a generated reply with a cited memory, then an explicit refusal. It includes inputs, visible evidence to check and a recording sequence. Replies are generated at runtime; no expected dialogue is supplied for playback. A new autonomous recording has not yet been added to this repository. The linked YouTube video remains the prepared demonstration described above.
+
 ## Frames from the recording
 
 [![Duck at rest before the demonstration exchange](images/duck-idle.jpg)](https://youtu.be/8uiZaVtBBH4?t=57)

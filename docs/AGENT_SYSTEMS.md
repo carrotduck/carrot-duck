@@ -49,6 +49,8 @@ Yang, Duque and Mousas's [The Effects of Depth of Knowledge of a Virtual Agent](
 
 ## Proposed evaluation and demonstration
 
+The [autonomous walkthrough](AUTONOMOUS_WALKTHROUGH.md) provides concrete demonstration inputs and inspection steps. [Evaluation notes](EVALUATION.md) separates immediately demonstrable behavior from the controls still needed for a study.
+
 These are proposed comparisons, not completed studies or implemented experiment controls:
 
 | Question | Comparison and observations |
