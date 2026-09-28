@@ -26,6 +26,8 @@ Autonomous turns and their retrieval traces are stored in `autonomous_turns`. Pl
 
 ## Wider dialogue and research services
 
+See [Agent systems and research questions](AGENT_SYSTEMS.md) for personality drift, affective confidence, relationship policies and their route-specific limits.
+
 The original chat route uses context retrieval, affective signals, relationship policies and expression planning. Modules such as `ppr.js`, `relationalState.js` and `adminAnalytics.js` support recording and reviewing candidate recognition events. Their internal labels are operational categories for inspection. User studies would be needed to assess perceived recognition or naturalness.
 
 Prepared scenes in `rehearsalScenes.js` use separate rehearsal records and explicit progression. They support repeatable developer demonstrations and are not used as a fallback by the autonomous generator. Body-event services are present for the separate rehearsal work; the autonomous page has no physical robot transport.

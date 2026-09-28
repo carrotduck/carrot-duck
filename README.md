@@ -32,9 +32,14 @@ The source includes the dialogue service, memory retrieval, relationship and bou
 
 | Part of the project | Role and release scope |
 | --- | --- |
-| Continuity across conversations | Memory, configurable personality and experimental relationship policies provide context for later exchanges. The wider dialogue and research services are included in source. |
+| Personality adaptation | Configurable character traits undergo bounded, rule-based changes in the original chat route. The local autonomous demo reads the existing settings without updating them. |
+| Affect and uncertainty | Text cues inform an appraisal state and an affective signal with evidence and a heuristic confidence score. These scores have not been calibrated as probabilities of correct emotion recognition. |
+| Memory and provenance | Stored details carry source and confidence metadata. Autonomous retrieval selects eligible records and checks the reply's cited IDs. |
+| Relationship and boundaries | The wider dialogue services track familiarity, explicit relationship cues and decaying boundary pressure to guide later responses. |
 | Expression within a turn | The performance controller coordinates a reply with a supported gesture, facial expression and optional voice. This is the character layer used to present the interaction. |
-| Local autonomous demo | The included interface exposes retrieval, generated replies, performance plans and playback reports. This path does not automatically update the experimental relationship model. |
+| Research records | Candidate recognition events and subsequent reaction labels support review in the wider prototype. The local autonomous route keeps its own retrieval and playback traces. |
+
+[Agent systems and research questions](docs/AGENT_SYSTEMS.md) explains how these mechanisms are implemented, which routes use them, and what remains to be evaluated.
 
 The local interface opens the autonomous interaction mode. It retrieves eligible memories from the current account, generates a reply and a bounded performance plan, and shows the records cited by the model. The plan combines a gesture with a facial expression and an optional change to the character's ears. Browser playback reports can inform the next turn. Daily conversation uses smaller movements than the performance setting.
 
