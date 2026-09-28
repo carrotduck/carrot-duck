@@ -10,6 +10,8 @@ This repository is a runnable research prototype, with backend source and a smal
 
 ## Demonstration
 
+[![▶ Watch on YouTube](docs/images/watch-youtube.svg)](https://youtu.be/8uiZaVtBBH4)
+
 [![CARROT DUCK — character and conversation in the hosted Performance interface](docs/images/performance.jpg)](https://youtu.be/8uiZaVtBBH4)
 
 Cover: the hosted Performance interface. Click the image to watch the developer demonstration.

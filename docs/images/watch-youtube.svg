@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="244" height="48" viewBox="0 0 244 48" role="img" aria-labelledby="title">
+  <title id="title">Watch on YouTube</title>
+  <rect width="244" height="48" rx="9" fill="#c62828"/>
+  <path d="M20 14v20l17-10z" fill="#fff"/>
+  <text x="51" y="30" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700">Watch on YouTube</text>
+</svg>
