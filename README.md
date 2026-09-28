@@ -6,13 +6,32 @@ I developed CARROT DUCK to explore when an AI companion's recollection feels per
 
 [Project website](https://shiruifu.online/projects/carrot-duck/) · [Developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4)
 
+## Demonstration
+
+[![Duck speaking about an earlier encounter in the recorded Live2D demonstration](docs/images/duck-speaking.jpg)](https://youtu.be/8uiZaVtBBH4)
+
+**[Watch the developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4).** In this prepared sequence, Duck recalls an earlier encounter with a cat and uses its fox ears as part of a playful response. The recording shows the deployed interface; the autonomous mode in this repository was added later. [Demo notes](docs/DEMO.md) include a second frame and explain what the recording demonstrates.
+
 ## What is in this repository
 
 The source includes the dialogue service, memory retrieval, relationship and boundary policies, and character performance controller. Research services record candidate moments of perceived personal recognition (PPR) for examination alongside the user's response. These records support analysis; a system-assigned label does not establish that a user felt recognized.
 
 The local interface opens the autonomous interaction mode. It retrieves eligible memories from the current account, generates a reply and a bounded performance plan, and shows the records cited by the model. The plan combines a gesture with a facial expression and an optional change to the character's ears. Browser playback reports can inform the next turn. Daily conversation uses smaller movements than the performance setting.
 
-The YouTube demonstration uses a prepared dialogue sequence to show the conversational interface, management dashboard and Live2D performance. The autonomous mode was added later. See [Demo notes](docs/DEMO.md) for the distinction and [Architecture](docs/ARCHITECTURE.md) for the two interaction paths.
+The project brings memory retrieval and character performance into an inspectable interaction loop. It supports examining how the timing and presentation of a recalled detail may affect a user's experience of recognition. See [Architecture](docs/ARCHITECTURE.md) for the autonomous path and the wider research services.
+
+## Duck as the character example
+
+The current Live2D controller supports nodding, head turns, gaze shifts and facial expression through the model's available parameters. Duck's rig also provides the ear and blush controls used in the character example. In voiced turns, the main gesture starts with audio playback and releases when the turn ends or is interrupted.
+
+| Interaction | Current autonomous behavior |
+| --- | --- |
+| A reply draws on a saved memory | The reply includes source IDs; a remembered smile is available when the plan cites a memory. |
+| The exchange calls for comfort | The plan can select a concerned expression and use a lower movement intensity. |
+| A playful invitation fits the exchange | The controller can reveal the ears or offer a head-pat pose, subject to the plan's invitation and boundary checks. |
+| The user declines | The plan switches to a restrained listening response and hides the ears. |
+
+These are supported behaviors, not a fixed script for every matching utterance. Another Live2D model needs compatible controls or adjusted mappings. A future 3D version could explore full-body posture, spatial orientation and reaching toward objects, but would require a new animation adapter and scene interaction logic. No 3D implementation is included. [Character capabilities and extension notes](docs/CHARACTER.md) describe this boundary.
 
 ## Autonomous interaction flow
 
@@ -49,7 +68,7 @@ npm start
 
 Open <http://127.0.0.1:3002>, create a local test account and continue to autonomous interaction. Save an invented experience with the memory form, then ask a related question. Open the inspect panel to compare the reply with its cited source and selected performance.
 
-Text interaction works without character assets. The purchased model shown in the video is not included. To use a licensed model or enable speech, follow [Running and configuration](docs/RUNNING.md). The local entry page replaces the deployed application's bundled interface; the research and administration services are included as APIs.
+Text interaction works without character assets. The model shown in the video is not included. To use a licensed model or enable speech, follow [Running and configuration](docs/RUNNING.md). The local entry page replaces the deployed application's bundled interface; the research and administration services are included as APIs.
 
 | Experience | What you need |
 | --- | --- |

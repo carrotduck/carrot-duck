@@ -1,6 +1,6 @@
 # Running CARROT DUCK
 
-The public release provides a local account page and the autonomous interaction interface. It also includes the backend services used by the wider prototype. The deployed site's compiled front end and purchased character assets are excluded.
+The public release provides a local account page and the autonomous interaction interface. It also includes the backend services used by the wider prototype. The deployed site's compiled front end and character model assets are excluded.
 
 ## Install and start
 
@@ -36,7 +36,7 @@ To use a model you are licensed to run:
 2. Set `LIVE2D_MODEL_PATH` to a same-origin path such as `/live2d/my-model/my-model.model3.json`.
 3. Restart the service and reopen the interaction page.
 
-The renderer expects Cubism 4-compatible assets. It loads the Cubism Core runtime, PixiJS and pixi-live2d-display from their configured upstream URLs. Those requests require internet access and are subject to the respective projects' terms. The purchased fox model is not available through this repository.
+The renderer expects Cubism 4-compatible assets. It loads the Cubism Core runtime, PixiJS and pixi-live2d-display from their configured upstream URLs. Those requests require internet access and are subject to the respective projects' terms. The fox model shown in the demonstration is not available through this repository.
 
 Gestures use standard head, body, eye and mouth parameters when present. Ear visibility and blush include mappings specific to the original rig (`Param19` and `Param18`). Adapt these mappings for another model; a different model may not support the same gestures. The parameter writer checks available controls before writing.
 
