@@ -12,6 +12,14 @@ I developed CARROT DUCK to explore when an AI companion's recollection feels per
 
 **[Watch the developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4).** In this prepared sequence, Duck recalls an earlier encounter with a cat and uses its fox ears as part of a playful response. The recording shows the deployed interface; the autonomous mode in this repository was added later. [Demo notes](docs/DEMO.md) include a second frame and explain what the recording demonstrates.
 
+### Interface gallery
+
+| Home | Chat | Performance |
+| --- | --- | --- |
+| [![Home page with calendar and optional reminders](docs/images/home.jpg)](docs/images/home.jpg) | [![Chat page with the sticker picker open](docs/images/chat.jpg)](docs/images/chat.jpg) | [![Performance page with Duck listening beside the conversation](docs/images/performance.jpg)](docs/images/performance.jpg) |
+
+Screenshots supplied by the developer from the hosted application. Click a frame to view it at full size. The public repository starts with a smaller local account and autonomous interaction interface; it does not include the hosted application's compiled front end.
+
 ## What is in this repository
 
 The source includes the dialogue service, memory retrieval, relationship and boundary policies, and character performance controller. Research services record candidate moments of perceived personal recognition (PPR) for examination alongside the user's response. These records support analysis; a system-assigned label does not establish that a user felt recognized.
@@ -68,6 +76,8 @@ npm start
 
 Open <http://127.0.0.1:3002>, create a local test account and continue to autonomous interaction. Save an invented experience with the memory form, then ask a related question. Open the inspect panel to compare the reply with its cited source and selected performance.
 
+Keep the server running while using that address: `127.0.0.1` refers to your own computer. On Windows, `start-local.cmd` starts it after installation and configuration. A “connection refused” message usually means the server has not started or has stopped.
+
 Text interaction works without character assets. The model shown in the video is not included. To use a licensed model or enable speech, follow [Running and configuration](docs/RUNNING.md). The local entry page replaces the deployed application's bundled interface; the research and administration services are included as APIs.
 
 | Experience | What you need |
@@ -94,6 +104,6 @@ The project is implemented in JavaScript with Node.js, Express, SQLite and Live2
 
 ## License and attribution
 
-Original code and documentation are available under the [MIT License](LICENSE). Third-party dependencies and character assets have their own terms; see [Third-party notices](THIRD_PARTY_NOTICES.md). No user conversations, private memories, model files or provider credentials are distributed.
+Original code and documentation are available under the [MIT License](LICENSE). Third-party dependencies and artwork depicted in screenshots have their own terms; see [Third-party notices](THIRD_PARTY_NOTICES.md). Conversation databases, private memory records, model files and provider credentials are excluded.
 
 Project by [Shirui Fu](https://shiruifu.online/). Citation metadata is in [CITATION.cff](CITATION.cff).

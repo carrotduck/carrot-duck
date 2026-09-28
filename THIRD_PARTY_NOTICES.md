@@ -6,7 +6,7 @@ Node dependencies are listed in `package.json` and resolved in `package-lock.jso
 
 The Live2D model files, textures, motion files, user stickers and uploaded media are excluded. Supply assets you are permitted to use. The demonstration model's original author and distribution license have not yet been recovered, so it is not bundled or assigned this project's MIT license.
 
-The two documentation screenshots in `docs/images/` are frames from Shirui Fu's developer demonstration. They contain third-party character artwork and are not offered under the repository's MIT license. Including these screenshots or linking to the video does not grant rights to extract or reuse its character assets or audio. See [image provenance](docs/images/README.md).
+The documentation screenshots in `docs/images/` include frames from Shirui Fu's developer demonstration and interface captures supplied by the developer. They depict third-party character or sticker artwork and are not offered under the repository's MIT license. Including these screenshots or linking to the video does not grant rights to extract or reuse its artwork, character assets or audio. See [image provenance](docs/images/README.md).
 
 DeepSeek, ElevenLabs and the optional embedding/search services are external providers. Configure your own credentials and follow their service terms. No voice recording, cloned voice or private voice identifier is supplied.
 

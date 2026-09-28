@@ -20,6 +20,8 @@ Copy-Item .env.example .env
 
 Set `DEEPSEEK_API_KEY` in `.env`, then run `npm start`. Open <http://127.0.0.1:3002>. The service binds to the loopback interface by default. Restart it after changing environment settings.
 
+`127.0.0.1` means the computer running your browser. The link works only while the local server is running on that same computer; it is not the hosted demonstration. On Windows, after installing dependencies and configuring `.env`, you can double-click `start-local.cmd`. Keep its window open while using the demo.
+
 Create a local test account, keep its recovery key private, and follow the link to autonomous interaction. The account is stored in the local SQLite database. It is separate from any account on the hosted CARROT DUCK website.
 
 For a first test, save an invented memory such as “Sketching birds by the river helps me relax after work.” Ask what helps you relax and inspect the cited record. Try an unrelated question to see whether the response avoids an unnecessary memory reference. Generation varies between runs.
@@ -53,6 +55,8 @@ Data is written to `data/` by default. `DATA_DIR` can point to a separate direct
 Background contact and maintenance jobs are disabled by default. `ENABLE_BACKGROUND_JOBS=true` enables the existing scheduler, which may make additional provider calls. An empty `ADMIN_SECRET_KEY` disables administrative access. If you deliberately expose the service beyond localhost, review authentication, HTTPS, rate limits, provider spending limits and data handling for that deployment.
 
 ## Troubleshooting
+
+If the browser reports “connection refused” at `127.0.0.1:3002`, start the server and check that its terminal shows `CARROT DUCK server listening on :3002`. If startup fails, resolve the error shown there before reopening the page. If you changed `PORT`, use that port in the URL. Opening this address on a phone points to the phone itself.
 
 “Autonomous generation unavailable” can mean the key is missing, the provider request failed, or generated output failed validation. Check the server console and your provider account. The service does not substitute a prepared scene for a failed autonomous generation.
 
