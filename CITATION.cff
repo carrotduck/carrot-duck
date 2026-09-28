@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you refer to this prototype, please cite the software and project page."
+type: software
+title: "CARROT DUCK"
+authors:
+  - family-names: "Fu"
+    given-names: "Shirui"
+    website: "https://shiruifu.online/"
+version: "0.1.0"
+license: MIT
+url: "https://shiruifu.online/projects/carrot-duck/"
+repository-code: "https://github.com/carrotduck/carrot-duck"

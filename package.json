@@ -1,0 +1,34 @@
+{
+  "name": "carrot-duck",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test test/*.test.js",
+    "test:autonomous": "node --test test/autonomous.test.js test/autonomous-performance.test.js",
+    "test:live2d": "node --test test/live2d-motion.test.js test/performance-reply.test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "13.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "multer": "^2.2.0",
+    "sqlite-vec": "^0.1.9",
+    "uuid": "^11.1.0",
+    "web-push": "^3.6.7"
+  },
+  "private": true,
+  "license": "MIT",
+  "description": "A web-based AI companion prototype for studying perceived personal recognition.",
+  "author": "Shirui Fu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carrotduck/carrot-duck.git"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

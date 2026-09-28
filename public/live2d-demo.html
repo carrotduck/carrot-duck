@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrot Duck Live2D Stage</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f2;
+      --panel: #ffffff;
+      --line: #dfe5d7;
+      --ink: #1f261e;
+      --muted: #657060;
+      --accent: #4f8f6b;
+      --accent-2: #d98b3a;
+      --glow: #fff7e6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 22% 18%, var(--glow) 0, transparent 28%), var(--bg);
+      color: var(--ink);
+      font: 15px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(360px, 1fr) 390px;
+    }
+    body.embed main {
+      display: block;
+      min-height: 100vh;
+    }
+    body.embed aside {
+      display: none;
+    }
+    body.embed #stage {
+      min-height: 100vh;
+    }
+    body.embed #stage,
+    body.embed canvas {
+      touch-action: none;
+    }
+    body.embed .badge {
+      left: 12px;
+      top: 12px;
+      font-size: 12px;
+      padding: 6px 9px;
+    }
+    #stage {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .badge {
+      position: absolute;
+      left: 22px;
+      top: 18px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(8px);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    aside {
+      border-left: 1px solid var(--line);
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+    p { margin: 0; color: var(--muted); }
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    input:not([type="checkbox"]), textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      padding: 10px 11px;
+      outline: none;
+    }
+    textarea {
+      min-height: 108px;
+      resize: vertical;
+    }
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: var(--accent);
+      color: #fff;
+      font: 700 14px system-ui;
+      cursor: pointer;
+    }
+    button.secondary { background: #ebf1e5; color: var(--ink); }
+    button.warn { background: var(--accent-2); }
+    button:disabled { opacity: .55; cursor: wait; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips button { padding: 8px 10px; font-weight: 600; }
+    .check { display: flex; align-items: center; gap: 8px; }
+    input[type="checkbox"] { width: 16px; height: 16px; }
+    input[type="range"] { padding: 0; accent-color: var(--accent); }
+    output { font-variant-numeric: tabular-nums; display: inline-block; min-width: 4ch; }
+    .log {
+      min-height: 130px;
+      max-height: 260px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcf8;
+      padding: 10px;
+      white-space: pre-wrap;
+      color: #2e352b;
+    }
+    .meter {
+      height: 8px;
+      border-radius: 999px;
+      background: #e7ece2;
+      overflow: hidden;
+    }
+    .meter > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width .08s linear;
+    }
+    @media (max-width: 820px) {
+      main { grid-template-columns: 1fr; }
+      #stage { position: relative; height: 58dvh; min-height: 0; }
+      aside { border-left: 0; border-top: 1px solid var(--line); }
+    }
+  </style>
+</head>
+<body class="embed">
+  <main>
+    <section id="stage">
+      <div class="badge" id="status">Loading Live2D...</div>
+      <canvas id="live2d"></canvas>
+    </section>
+    <aside>
+      <header>
+        <h1>CARROT DUCK</h1>
+        <p id="previewLabel">动作排练</p>
+      </header>
+
+      <div class="chips" aria-label="动作">
+        <button class="secondary" data-action="listening">倾听</button>
+        <button class="secondary" data-action="nod">点头</button>
+        <button class="secondary" data-action="softSmile">微笑</button>
+        <button class="secondary" data-action="thinking">思考</button>
+        <button class="secondary" data-action="shakeHead">摇头</button>
+        <button class="secondary" data-action="greet">招呼</button>
+        <button class="secondary" data-action="shy">含蓄</button>
+        <button class="secondary" data-action="breathe">放松</button>
+      </div>
+      <label>
+        <span>动作强度 <output id="intensityValue">100%</output></span>
+        <input id="intensity" type="range" min="0" max="100" value="100" />
+      </label>
+      <label class="check"><input id="reduceMotion" type="checkbox" />减少动态</label>
+
+      <label>
+        Demo text
+        <textarea id="text">嗨，我是胡萝卜鸭。现在这个原型已经可以用 Live2D 角色说话，并且根据音频驱动口型啦。</textarea>
+      </label>
+
+      <div class="row">
+        <button id="speak">Speak text</button>
+        <button id="stop" class="secondary">Stop</button>
+      </div>
+
+      <label>本地音频<input id="audioFile" type="file" accept="audio/*" /></label>
+
+      <label>
+        Optional Duck userId
+        <input id="userId" placeholder="填入用户 id 后可以调用 /api/chat/:userId/chat" />
+      </label>
+      <div class="row">
+        <button id="ask" class="warn">Ask Duck + speak</button>
+        <button id="idle" class="secondary">Idle motion</button>
+      </div>
+
+      <div class="row">
+        <button id="listen" class="secondary">Listening state</button>
+        <button id="quiet" class="secondary">Quiet state</button>
+      </div>
+
+      <label>
+        Framing
+        <select id="framing">
+          <option value="upper">upper body</option>
+          <option value="close">close portrait</option>
+          <option value="full">full body</option>
+        </select>
+      </label>
+
+      <label>
+        Expression
+        <select id="expression">
+          <option value="hong">hong / 脸红</option>
+          <option value="bloom">bloom</option>
+          <option value="sou">sou</option>
+          <option value="hei">hei</option>
+          <option value="era">era</option>
+          <option value="waigua">waigua</option>
+        </select>
+      </label>
+
+      <div class="chips">
+        <button class="secondary" data-motion="think">think</button>
+        <button class="secondary" data-motion="walk">walk</button>
+        <button class="secondary" data-motion="tuolian">tuolian</button>
+        <button class="secondary" data-motion="xiangzhi">xiangzhi</button>
+        <button class="secondary" data-motion="xu">xu</button>
+      </div>
+
+      <div class="meter"><div id="mouthMeter"></div></div>
+      <div class="log" id="log">Ready.</div>
+    </aside>
+  </main>
+
+  <script src="/carrot-duck-runtime.js?v=20260712-account-guard"></script>
+  <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pixi.js@6.5.10/dist/browser/pixi.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/cubism4.min.js"></script>
+  <script src="/carrot-duck-motion.js?v=20260928-performance"></script>
+  <script src="/carrot-duck-performance.js?v=20260928-performance"></script>
+  <script>
+    const requestedModel = new URLSearchParams(location.search).get('model') || '';
+    const MODEL_URL = /^\/live2d\/[a-zA-Z0-9_/-]+\.model3\.json$/.test(requestedModel) && !requestedModel.includes('..') ? requestedModel : '/live2d/fox/fox.model3.json';
+    const canvas = document.getElementById('live2d');
+    const statusEl = document.getElementById('status');
+    const logEl = document.getElementById('log');
+    const meter = document.getElementById('mouthMeter');
+    const textEl = document.getElementById('text');
+    const userIdEl = document.getElementById('userId');
+    const expressionEl = document.getElementById('expression');
+    const framingEl = document.getElementById('framing');
+    const params = new URLSearchParams(location.search);
+    const rehearsalMode = params.get('rehearsal') === '1'
+      && ['127.0.0.1', 'localhost'].includes(location.hostname);
+    const embedMode = !rehearsalMode;
+    if (embedMode) document.body.classList.add('embed');
+    else document.body.classList.remove('embed');
+    let app;
+    let model;
+    let audio;
+    let currentState = 'idle';
+    let audioContext;
+    let analyser;
+    let sourceNode;
+    let visemeTimeline = [];
+    let naturalWidth = 1;
+    let naturalHeight = 1;
+    let parameterWriter;
+    let motionFrame;
+    let rehearsalEars = false;
+    let manualMotion = false;
+    let motionEpoch = 0;
+    let speechEpoch = 0;
+    let speechAbort = null;
+    let audioObjectUrl = null;
+    let audioSamples = null;
+    let expressionEpoch = 0;
+    let expressionStrength = 1;
+    const motionController = CarrotDuckMotion.createController();
+    let autonomousFace = null;
+    const performancePlayer = CarrotDuckPerformance.create({
+      duration: action => CarrotDuckMotion.ACTIONS[action] || 3200,
+      prepare: plan => {
+        motionController.setBoundary(plan.intent === 'boundary' ? 'deescalate' : 'normal');
+        autonomousFace = { name: plan.face, strength: plan.intensity };
+        if (plan.ears === 'show') rehearsalEars = true;
+        if (plan.ears === 'hide') { rehearsalEars = false; setParam('Param19', 0); }
+      },
+      perform: plan => {
+        if (!model || document.hidden) return false;
+        return triggerCustomAction(plan.action, { strength: plan.intensity, force: true });
+      },
+      release: () => { autonomousFace = null; motionController.release({ fadeBlush: true }); },
+      report: (turnId, status) => window.parent.postMessage({ type: 'carrotduck-performance', turnId, status, ears: rehearsalEars }, location.origin),
+    });
+    const mouthSmoother = CarrotDuckMotion.createMouthSmoother();
+    const reducedMotionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+    const reduceMotionEl = document.getElementById('reduceMotion');
+    reduceMotionEl.checked = reducedMotionQuery.matches;
+    motionController.setReducedMotion(reduceMotionEl.checked);
+    let pointer = { x: 0, y: 0, active: false };
+    let pointerStart = null;
+    let suppressNextClick = false;
+    let activeDelivery = null;
+    let receiptChain = Promise.resolve();
+
+    const FRAMES = {
+      upper: { zoom: 2.32, top: 0.07, x: 0.48 },
+      mobileUpper: { zoom: 2.75, top: 0.07, x: 0.48 },
+      close: { zoom: 3.05, top: 0.08, x: 0.48 },
+      full: { zoom: 0.92, top: 0.06, x: 0.48 }
+    };
+
+    function log(message) {
+      logEl.textContent = `${new Date().toLocaleTimeString()}  ${message}\n${logEl.textContent}`.slice(0, 2000);
+    }
+
+    function sendDeliveryReceipt(commandId, status, details = {}) {
+      const userId = localStorage.getItem('carrotduck_user_id') || '';
+      if (!userId || !commandId) return Promise.resolve();
+      receiptChain = receiptChain.then(() => fetch(`/api/delivery/${encodeURIComponent(userId)}/${encodeURIComponent(commandId)}/receipt`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status, ...details })
+        })).catch((error) => {
+        log(`receipt ${status} failed: ${error.message}`);
+      });
+      return receiptChain;
+    }
+
+    function closeActiveDelivery(status, details = {}) {
+      if (!activeDelivery?.commandId) return;
+      const current = activeDelivery;
+      activeDelivery = null;
+      sendDeliveryReceipt(current.commandId, status, details);
+    }
+
+    function applyTheme(theme = {}) {
+      const root = document.documentElement;
+      const dark = theme.dark === true;
+      root.style.setProperty('--bg', theme.stageBg || (dark ? '#151515' : '#f6f7f2'));
+      root.style.setProperty('--glow', theme.stageGlow || (dark ? 'rgba(255,255,255,.035)' : '#fff7e6'));
+      root.style.setProperty('--panel', theme.panel || (dark ? '#202020' : '#ffffff'));
+      root.style.setProperty('--line', theme.line || (dark ? '#383838' : '#dfe5d7'));
+      root.style.setProperty('--ink', theme.ink || (dark ? '#f4eee7' : '#1f261e'));
+      root.style.setProperty('--muted', theme.muted || (dark ? '#c7bcb0' : '#657060'));
+      document.body.style.colorScheme = dark ? 'dark' : 'light';
+    }
+
+    function setParam(id, value) {
+      return parameterWriter?.set(id, value);
+    }
+
+    function releaseExpression() {
+      expressionEpoch++;
+      const manager = model?.internalModel?.motionManager?.expressionManager;
+      if (manager) {
+        manager.reserveExpressionIndex = -1;
+        manager.currentExpression = manager.defaultExpression;
+        manager.resetExpression();
+      }
+    }
+
+    function cancelAuthoredMotion() {
+      motionEpoch++;
+      if (manualMotion && parameterWriter) motionController.adoptPose((id) => parameterWriter.get(id));
+      model?.internalModel?.motionManager?.stopAllMotions();
+      manualMotion = false;
+    }
+
+    function triggerCustomAction(name, options = {}) {
+      if (!motionController.trigger(name, options)) return false;
+      cancelAuthoredMotion();
+      log(`custom action: ${name}`);
+      return true;
+    }
+
+    function notifyParentAction(text, state = '', customActionName = '') {
+      if (!embedMode || window.parent === window) return;
+      window.parent.postMessage({
+        type: 'carrotduck-live2d-action',
+        action: text,
+        state,
+        customAction: customActionName
+      }, location.origin);
+    }
+
+    function stagePoint(event) {
+      const rect = canvas.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / Math.max(1, rect.width);
+      const y = (event.clientY - rect.top) / Math.max(1, rect.height);
+      return {
+        x: Math.max(0, Math.min(1, x)),
+        y: Math.max(0, Math.min(1, y))
+      };
+    }
+
+    function interactionForPoint(point) {
+      // This rig has no authored hit areas. Do not invent touched body parts.
+      return { action: '鸭子轻轻点头回应', state: 'listening', customAction: 'nod' };
+    }
+
+    function handlePointerMove(event) {
+      event.preventDefault?.();
+      pointer = { ...stagePoint(event), active: true };
+    }
+
+    function handlePointerLeave() {
+      pointer.active = false;
+    }
+
+    function handlePointerCancel() {
+      pointerStart = null;
+      suppressNextClick = false;
+      pointer.active = false;
+    }
+
+    function handlePointerDown(event) {
+      event.preventDefault?.();
+      pointer = { ...stagePoint(event), active: true };
+      pointerStart = { ...pointer, time: performance.now() };
+      suppressNextClick = false;
+      canvas.setPointerCapture?.(event.pointerId);
+    }
+
+    function handlePointerUp(event) {
+      event.preventDefault?.();
+      const end = stagePoint(event);
+      const start = pointerStart;
+      pointerStart = null;
+      if (canvas.hasPointerCapture?.(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+      pointer = { ...end, active: true };
+      if (!start) return;
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const distance = Math.hypot(dx, dy);
+      if (distance < 0.09) return;
+      suppressNextClick = true;
+      let hit;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        hit = dx > 0
+          ? { action: '鸭子顺着你的手势偏了偏头', state: 'listening', customAction: 'listening' }
+          : { action: '鸭子轻轻摇了摇头', state: 'idle', customAction: 'shakeHead' };
+      } else {
+        hit = dy < 0
+          ? { action: '鸭子像是在认真思考', state: 'listening', customAction: 'thinking' }
+          : { action: '鸭子静默中', state: 'idle', customAction: 'breathe' };
+      }
+      if (currentState === 'speaking') hit.state = 'speaking';
+      if (triggerCustomAction(hit.customAction, { strength: 0.5 })) {
+        if (hit.state) setState(hit.state);
+        notifyParentAction(hit.action, hit.state, hit.customAction);
+      }
+    }
+
+    function handlePointerClick(event) {
+      event.preventDefault?.();
+      if (suppressNextClick) {
+        suppressNextClick = false;
+        return;
+      }
+      const hit = interactionForPoint(stagePoint(event));
+      if (currentState === 'speaking') hit.state = 'speaking';
+      if (triggerCustomAction(hit.customAction, { strength: 0.5 })) {
+        if (hit.state) setState(hit.state);
+        notifyParentAction(hit.action, hit.state, hit.customAction);
+      }
+    }
+
+    function setState(name) {
+      if (!['idle', 'listening', 'thinking', 'speaking'].includes(name)) return;
+      const changed = currentState !== name;
+      currentState = name;
+      motionController.setState(name);
+      statusEl.textContent = name === 'listening' ? 'Listening' : name === 'thinking' ? 'Thinking' : name === 'speaking' ? 'Speaking' : 'Idle';
+      if (changed) notifyParentAction({ idle: '鸭子静默中', listening: '鸭子正在倾听', thinking: '鸭子正在思考', speaking: '鸭子正在说话' }[name], name);
+    }
+
+    async function applyExpression(name, strength = 1) {
+      if (!model || !name) return;
+      const epoch = ++expressionEpoch;
+      expressionStrength = CarrotDuckMotion.clamp(strength);
+      try {
+        const manager = model.internalModel.motionManager.expressionManager;
+        // Load first, then check ownership before activating an asynchronous expression.
+        const index = manager.definitions.findIndex((item) => item.Name === name);
+        if (index < 0) return;
+        await manager.loadExpression(index);
+        if (epoch !== expressionEpoch) return;
+        await model.expression(name);
+        log(`expression: ${name}`);
+      } catch (e) {
+        log(`expression not available: ${name}`);
+      }
+    }
+
+    async function playMotion(name) {
+      if (!model || !name || currentState === 'speaking') return;
+      const epoch = ++motionEpoch;
+      try {
+        const manager = model.internalModel.motionManager;
+        const loaded = await manager.loadMotion(name, 0);
+        if (!loaded || epoch !== motionEpoch || currentState === 'speaking') return;
+        motionController.release();
+        manualMotion = await model.motion(name, 0);
+        log(`motion: ${name}`);
+      } catch (e) {
+        log(`motion not available: ${name}`);
+      }
+    }
+
+    function applyFraming(name = 'upper') {
+      if (!model || !app) return;
+      const mobile = embedMode && (window.parent === window ? window : window.parent).matchMedia('(max-width: 860px)').matches;
+      const frame = mobile && name === 'upper' ? FRAMES.mobileUpper : (FRAMES[name] || FRAMES.upper);
+      const base = Math.min(app.screen.width / naturalWidth, app.screen.height / naturalHeight);
+      model.scale.set(base * frame.zoom);
+      // This rig's hair starts about 2.8% below its canvas top. Keep it in frame.
+      const topOffset = naturalHeight * model.scale.y * ((model.anchor?.y || 0) - 0.028);
+      model.position.set(app.screen.width * frame.x, app.screen.height * frame.top + topOffset);
+    }
+
+    function stopAudio({ fadeBlush = false } = {}) {
+      performancePlayer.finish('cancelled');
+      speechEpoch++;
+      speechAbort?.abort();
+      speechAbort = null;
+      if (audio) {
+        audio.onplaying = audio.onended = audio.onerror = null;
+        audio.pause();
+        audio.removeAttribute('src');
+        audio.load();
+        audio = null;
+      }
+      sourceNode?.disconnect();
+      analyser?.disconnect();
+      sourceNode = analyser = audioSamples = null;
+      visemeTimeline = [];
+      mouthSmoother.reset();
+      if (audioObjectUrl) URL.revokeObjectURL(audioObjectUrl);
+      audioObjectUrl = null;
+      cancelAuthoredMotion();
+      motionController.release({ fadeBlush });
+      releaseExpression();
+      meter.style.width = '0%';
+      setState('idle');
+    }
+
+    function mouthShapeForViseme(viseme, value) {
+      const amount = Number(value || 0);
+      if (viseme === 'closed') return { open: 0, form: 0, funnel: 0 };
+      if (viseme === 'a') return { open: amount, form: 0.12, funnel: 0.02 };
+      if (viseme === 'e') return { open: amount * 0.72, form: 0.45, funnel: 0.03 };
+      if (viseme === 'i') return { open: amount * 0.55, form: 0.75, funnel: 0.02 };
+      if (viseme === 'o') return { open: amount * 0.78, form: -0.25, funnel: 0.55 };
+      if (viseme === 'u') return { open: amount * 0.6, form: -0.48, funnel: 0.72 };
+      return { open: amount * 0.65, form: 0, funnel: 0 };
+    }
+
+    function currentVisemeAt(time) {
+      return visemeTimeline.find((item) => time >= item.start && time < item.end) || null;
+    }
+
+    async function setupAudioGraph(el, epoch) {
+      audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+      if (audioContext.state === 'suspended') await audioContext.resume();
+      if (epoch !== speechEpoch) return false;
+      analyser = audioContext.createAnalyser();
+      analyser.fftSize = 512;
+      audioSamples = new Uint8Array(analyser.fftSize);
+      sourceNode?.disconnect?.();
+      sourceNode = audioContext.createMediaElementSource(el);
+      sourceNode.connect(analyser);
+      analyser.connect(audioContext.destination);
+      return true;
+    }
+
+    function sampleMouth() {
+      const quiet = { active: false, open: 0, form: 0, funnel: 0 };
+      const now = performance.now();
+      if (!audio || audio.paused || audio.ended) return mouthSmoother.sample(now, quiet);
+      const item = currentVisemeAt(audio.currentTime);
+      const shape = item ? mouthShapeForViseme(item.viseme, item.value) : { open: 0, form: 0, funnel: 0 };
+      let open = shape.open * 0.65;
+      if (analyser && audioSamples) {
+        analyser.getByteTimeDomainData(audioSamples);
+        const rms = Math.sqrt(audioSamples.reduce((sum, value) => sum + ((value - 128) / 128) ** 2, 0) / audioSamples.length);
+        // Character timestamps suggest shape; the actual voice, not a per-letter pulse, owns jaw opening.
+        const energy = CarrotDuckMotion.clamp((rms - 0.012) * 5);
+        open = energy * (item ? 0.75 + 0.25 * shape.open : 0.85);
+      }
+      return mouthSmoother.sample(now, { active: true, open, form: shape.form, funnel: item ? shape.funnel : open * 0.15 });
+    }
+
+    async function synthesizeAligned(text, expressionPlan = null, signal) {
+      const response = await fetch('/api/tts/generate-aligned', {
+        method: 'POST',
+        signal,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text,
+          lang: expressionPlan?.language || (localStorage.getItem('carrotduck_lang') === 'en' ? 'en' : 'zh'),
+          user_id: localStorage.getItem('carrotduck_user_id') || '',
+          expression_plan: expressionPlan
+        })
+      });
+      if (!response.ok) throw new Error(`TTS alignment failed: ${response.status}`);
+      return response.json();
+    }
+
+    function notifyVoiceEnd(voiceTurnId, ok) {
+      if (voiceTurnId) window.parent.postMessage({ type: 'carrotduck-live2d-voice-end', voiceTurnId, ok }, location.origin);
+    }
+
+    async function playAudioElement(el, epoch, expressionPlan = null, voiceTurnId = null, preludePlayed = false) {
+      if (!await setupAudioGraph(el, epoch) || epoch !== speechEpoch) return;
+      audio = el;
+      const commandId = expressionPlan?.command_id || null;
+      let startedAt = null;
+      const ownsPlayback = () => epoch === speechEpoch && audio === el;
+      el.onplaying = () => {
+        if (!ownsPlayback()) return;
+        setState('speaking');
+        if (startedAt != null) return;
+        startedAt = performance.now();
+        const plan = expressionPlan?.live2d || {};
+        const strength = Number.isFinite(plan.intensity) ? CarrotDuckMotion.clamp(plan.intensity) : 0.7;
+        motionController.setSpeechStyle(plan.custom_action || 'breathe', strength);
+        if (plan.expression && expressionPlan?.boundary_mode !== 'deescalate') applyExpression(plan.expression, strength);
+        if (performancePlayer.owns(voiceTurnId)) performancePlayer.start(voiceTurnId);
+        else if (!preludePlayed) triggerCustomAction(plan.custom_action || 'breathe', { strength, force: true });
+        if (activeDelivery) activeDelivery.startedAt = startedAt;
+        if (commandId) sendDeliveryReceipt(commandId, 'started', { resource: 'live2d_tts' });
+      };
+      el.onended = () => {
+        if (!ownsPlayback()) return;
+        if (performancePlayer.owns(voiceTurnId)) performancePlayer.finish('completed');
+        notifyVoiceEnd(voiceTurnId, true);
+        closeActiveDelivery('completed', {
+          resource: 'live2d_tts', duration_ms: startedAt == null ? 0 : performance.now() - startedAt, final_state: 'idle'
+        });
+        stopAudio({ fadeBlush: true });
+      };
+      el.onerror = () => {
+        if (!ownsPlayback()) return;
+        if (performancePlayer.owns(voiceTurnId)) performancePlayer.finish('failed');
+        notifyVoiceEnd(voiceTurnId, false);
+        closeActiveDelivery('failed', { resource: 'voice', reason: 'audio_playback_error' });
+        stopAudio();
+        statusEl.textContent = 'Audio error';
+      };
+      await el.play();
+      if (!ownsPlayback()) el.pause();
+    }
+
+    async function rehearseCaughtMe(expressionPlan, epoch, signal) {
+      if (expressionPlan?.source !== 'rehearsal' || expressionPlan.synthetic !== true
+        || expressionPlan.rehearsal?.pre_speech !== 'caughtMe'
+        || expressionPlan.live2d?.custom_action !== 'caughtMe'
+        || expressionPlan.boundary_mode === 'deescalate') return false;
+      if (signal.aborted || epoch !== speechEpoch) return false;
+      setState('idle');
+      triggerCustomAction('caughtMe', { strength: expressionPlan.live2d.intensity ?? 0.8, force: true });
+      await new Promise(resolve => {
+        const finish = () => { clearTimeout(timer); signal.removeEventListener('abort', finish); resolve(); };
+        const timer = setTimeout(finish, 1200);
+        signal.addEventListener('abort', finish, { once: true });
+      });
+      return !signal.aborted && epoch === speechEpoch;
+    }
+
+    async function speak(text, expressionPlan = null, voiceTurnId = null) {
+      const clean = String(text || '').trim();
+      if (!clean) return;
+      if (activeDelivery) closeActiveDelivery('skipped', { resource: 'live2d_tts', reason: 'interrupted_by_new_turn' });
+      stopAudio();
+      const epoch = speechEpoch;
+      if (expressionPlan?.source === 'autonomous' && expressionPlan.performance) performancePlayer.begin(voiceTurnId, expressionPlan.performance, true);
+      speechAbort = new AbortController();
+      const commandId = expressionPlan?.command_id || null;
+      const requestedAt = performance.now();
+      activeDelivery = commandId ? { commandId, requestedAt, startedAt: null } : null;
+      if (commandId) sendDeliveryReceipt(commandId, 'ack', { resource: 'live2d_tts' });
+      motionController.setBoundary(expressionPlan?.boundary_mode || 'normal');
+      setState('thinking');
+      triggerCustomAction('thinking', { strength: 0.45, force: true });
+      statusEl.textContent = 'Generating voice...';
+      try {
+        const result = await synthesizeAligned(clean, expressionPlan, speechAbort.signal);
+        if (epoch !== speechEpoch) return;
+        visemeTimeline = Array.isArray(result.alignment?.visemes) ? result.alignment.visemes : [];
+        if (commandId) {
+          sendDeliveryReceipt(commandId, 'tts_ready', {
+            resource: 'voice',
+            generation_ms: performance.now() - requestedAt,
+            viseme_count: visemeTimeline.length
+          });
+        }
+        const el = new Audio();
+        el.crossOrigin = 'anonymous';
+        el.src = result.url;
+        const preludePlayed = await rehearseCaughtMe(expressionPlan, epoch, speechAbort.signal);
+        if (epoch !== speechEpoch) return;
+        await playAudioElement(el, epoch, expressionPlan, voiceTurnId, preludePlayed);
+        if (epoch !== speechEpoch) return;
+        log(`speaking: ${clean.slice(0, 80)}\nvisemes: ${visemeTimeline.length}`);
+      } catch (error) {
+        if (epoch !== speechEpoch) return;
+        if (performancePlayer.owns(voiceTurnId)) performancePlayer.finish('failed');
+        closeActiveDelivery('failed', { resource: 'live2d_tts', reason: error.message });
+        stopAudio();
+        throw error;
+      }
+    }
+
+    async function askDuck() {
+      const userId = userIdEl.value.trim();
+      if (!userId) {
+        log('Fill userId first, or use Speak text.');
+        return;
+      }
+      const message = textEl.value.trim();
+      const response = await fetch(`/api/chat/${encodeURIComponent(userId)}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, lang: 'zh', performance_mode: true, no_stickers: true })
+      });
+      if (!response.ok || !response.body) throw new Error(`chat failed: ${response.status}`);
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let finalText = '';
+      let expressionPlan = null;
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const chunks = buffer.split('\n\n');
+        buffer = chunks.pop() || '';
+        for (const chunk of chunks) {
+          const line = chunk.split('\n').find((part) => part.startsWith('data: '));
+          if (!line) continue;
+          const data = JSON.parse(line.slice(6));
+          if (data.type === 'chunk') {
+            finalText = data.content || finalText;
+            logEl.textContent = finalText;
+          }
+          if (data.type === 'done') {
+            finalText = data.message?.content || finalText;
+            expressionPlan = data.expression_plan || null;
+          }
+        }
+      }
+      await speak(finalText || '我在这里。', expressionPlan);
+    }
+
+    async function boot() {
+      app = new PIXI.Application({
+        view: canvas,
+        resizeTo: document.getElementById('stage'),
+        autoStart: true,
+        transparent: true,
+        antialias: true
+      });
+      model = await PIXI.live2d.Live2DModel.from(MODEL_URL, { autoInteract: false, idleMotionGroup: '__manual_only__' });
+      const internal = model.internalModel;
+      parameterWriter = CarrotDuckMotion.createParameterWriter(internal.coreModel);
+      // This fox rig's Param18 drives ArtMesh9; other rigs keep their original colors.
+      if (MODEL_URL === '/live2d/fox/fox.model3.json') CarrotDuckMotion.tintBlushMesh(internal.renderer, internal.coreModel, 'ArtMesh9');
+      // In this pinned renderer, these hooks surround expressions and physics.
+      // Own blink/breath once, apply pose before physics and speech after expressions.
+      internal.eyeBlink = {
+        updateParameters() {
+          if (!motionFrame) return;
+          // The pinned renderer runs this after expressions, before ear physics, without saving the blink into the base pose.
+          for (const id of ['ParamEyeLOpen', 'ParamEyeROpen']) {
+            setParam(id, parameterWriter.get(id) * motionFrame.blink);
+          }
+        },
+      };
+      internal.breath = undefined;
+      internal.motionManager.on('motionFinish', () => {
+        if (manualMotion) motionController.adoptPose((id) => parameterWriter.get(id));
+        manualMotion = false;
+      });
+      internal.on('afterMotionUpdate', () => {
+        motionFrame = motionController.sample(performance.now(), { pointer, mouth: sampleMouth(), face: autonomousFace });
+        if (!manualMotion) {
+          for (const [id, value] of Object.entries(motionFrame.params)) setParam(id, value);
+        }
+      });
+      internal.on('beforeModelUpdate', () => {
+        if (!motionFrame) return;
+        if (rehearsalEars) setParam('Param19', 15);
+        for (const id of ['Param18', 'Param67']) setParam(id, parameterWriter.get(id) * expressionStrength);
+        if (motionFrame.blush > 0) setParam('Param18', Math.max(parameterWriter.get('Param18'), motionFrame.blush * 15));
+        if (!manualMotion || currentState === 'speaking') {
+          for (const id of ['ParamMouthOpenY', 'ParamMouthForm', 'MouthFunnel']) setParam(id, motionFrame.params[id]);
+        }
+        meter.style.width = `${Math.round(motionFrame.params.ParamMouthOpenY * 100)}%`;
+      });
+      app.stage.addChild(model);
+      model.anchor?.set?.(0.5, 0.52);
+      naturalWidth = model.width / (model.scale?.x || 1);
+      naturalHeight = model.height / (model.scale?.y || 1);
+      const fit = () => {
+        applyFraming(framingEl?.value || (embedMode ? 'upper' : 'upper'));
+      };
+      fit();
+      window.addEventListener('resize', () => setTimeout(fit, 80));
+      document.addEventListener('visibilitychange', () => {
+        model.autoUpdate = !document.hidden;
+        if (document.hidden) app.stop();
+        else { motionController.resetClock(); app.start(); }
+      });
+      statusEl.textContent = 'Ready';
+      setState(embedMode ? 'idle' : 'idle');
+      log('Live2D model loaded.');
+      window.parent.postMessage({ type: 'carrotduck-stage-ready' }, location.origin);
+    }
+
+    document.querySelectorAll('[data-action]').forEach((button) => {
+      button.addEventListener('click', () => {
+        releaseExpression();
+        if (currentState !== 'speaking') setState(button.dataset.action === 'listening' ? 'listening' : 'idle');
+        triggerCustomAction(button.dataset.action, { force: true });
+      });
+    });
+    document.getElementById('intensity').addEventListener('input', (event) => {
+      motionController.setIntensity(Number(event.target.value) / 100);
+      document.getElementById('intensityValue').value = `${event.target.value}%`;
+    });
+    reduceMotionEl.addEventListener('change', () => motionController.setReducedMotion(reduceMotionEl.checked));
+    reducedMotionQuery.addEventListener('change', (event) => {
+      reduceMotionEl.checked = event.matches;
+      motionController.setReducedMotion(event.matches);
+    });
+    document.getElementById('audioFile').addEventListener('change', async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      closeActiveDelivery('skipped', { resource: 'live2d_tts', reason: 'local_audio_selected' });
+      stopAudio();
+      const epoch = speechEpoch;
+      audioObjectUrl = URL.createObjectURL(file);
+      const el = new Audio(audioObjectUrl);
+      try { await playAudioElement(el, epoch); }
+      catch (error) { if (epoch === speechEpoch) { stopAudio(); log(error.message); } }
+      event.target.value = '';
+    });
+    if (document.body.dataset.preview === 'true') {
+      document.getElementById('previewLabel').textContent = '本地预览';
+      for (const id of ['speak', 'ask', 'userId']) document.getElementById(id).disabled = true;
+    }
+
+    document.getElementById('speak').addEventListener('click', async (e) => {
+      e.currentTarget.disabled = true;
+      try { await speak(textEl.value); } catch (err) { log(err.message); statusEl.textContent = 'Error'; }
+      e.currentTarget.disabled = false;
+    });
+    document.getElementById('ask').addEventListener('click', async (e) => {
+      e.currentTarget.disabled = true;
+      try { await askDuck(); } catch (err) { log(err.message); statusEl.textContent = 'Error'; }
+      e.currentTarget.disabled = false;
+    });
+    document.getElementById('stop').addEventListener('click', () => {
+      closeActiveDelivery('skipped', { resource: 'live2d_tts', reason: 'user_stopped' });
+      stopAudio();
+    });
+    document.getElementById('idle').addEventListener('click', () => {
+      cancelAuthoredMotion();
+      motionController.release(); releaseExpression();
+      if (currentState !== 'speaking') setState('idle');
+    });
+    document.getElementById('listen').addEventListener('click', () => {
+      if (currentState !== 'speaking') setState('listening');
+      triggerCustomAction('listening', { force: true });
+    });
+    document.getElementById('quiet').addEventListener('click', () => {
+      cancelAuthoredMotion();
+      motionController.release(); releaseExpression();
+      if (currentState !== 'speaking') setState('idle');
+    });
+    expressionEl.addEventListener('change', () => applyExpression(expressionEl.value));
+    framingEl.addEventListener('change', () => applyFraming(framingEl.value));
+    canvas.addEventListener('pointermove', handlePointerMove);
+    canvas.addEventListener('pointerdown', handlePointerDown);
+    canvas.addEventListener('pointerup', handlePointerUp);
+    canvas.addEventListener('pointercancel', handlePointerCancel);
+    canvas.addEventListener('pointerleave', handlePointerLeave);
+    canvas.addEventListener('click', handlePointerClick);
+    document.querySelectorAll('[data-motion]').forEach((btn) => {
+      btn.addEventListener('click', () => playMotion(btn.dataset.motion));
+    });
+
+    window.addEventListener('message', (event) => {
+      if (event.origin !== location.origin || event.source !== window.parent) return;
+      const data = event.data || {};
+      if (data.type !== 'carrotduck-live2d') return;
+      if (data.readyRequest && model) window.parent.postMessage({ type: 'carrotduck-stage-ready' }, location.origin);
+      if (data.performance && data.turnId) {
+        stopAudio();
+        setState('listening');
+        performancePlayer.begin(data.turnId, data.performance, false);
+        return;
+      }
+      // Appearance control is independent of scripted rehearsal state.
+      if (data.appearance && typeof data.appearance.ears === 'boolean') {
+        rehearsalEars = data.appearance.ears;
+        if (!rehearsalEars && parameterWriter) setParam('Param19', 0);
+      }
+      if (data.rehearsal) {
+        rehearsalEars = data.rehearsal.enabled === true && data.rehearsal.ears === true;
+        if (!rehearsalEars && parameterWriter) setParam('Param19', 0);
+      }
+      if (data.state === 'listening' && currentState !== 'speaking') setState('listening');
+      if (data.state === 'thinking' && currentState !== 'speaking') setState('thinking');
+      if (data.state === 'idle' && currentState !== 'speaking') setState('idle');
+      if (data.state === 'stop') {
+        closeActiveDelivery('skipped', { resource: 'live2d_tts', reason: 'parent_stopped' });
+        stopAudio();
+        return;
+      }
+      if (data.state === 'speak' && data.text) {
+        speak(data.text, data.expressionPlan || null, data.voiceTurnId).catch((e) => {
+          notifyVoiceEnd(data.voiceTurnId, false);
+          log(e.message);
+        });
+      } else {
+        if (data.motion) playMotion(data.motion);
+        if (data.expression) applyExpression(data.expression);
+        if (data.customAction) triggerCustomAction(data.customAction, { strength: Number.isFinite(data.strength) ? data.strength : 0.8, force: data.forceAction === true });
+      }
+      if (data.theme) applyTheme(data.theme);
+      if (data.framing) {
+        if (framingEl) framingEl.value = data.framing;
+        applyFraming(data.framing);
+      }
+    });
+
+    window.addEventListener('pagehide', () => {
+      closeActiveDelivery('skipped', { resource: 'live2d_tts', reason: 'surface_hidden' });
+      stopAudio();
+    });
+
+    boot().catch((e) => {
+      statusEl.textContent = 'Load failed';
+      log(e.message);
+    });
+  </script>
+</body>
+</html>
