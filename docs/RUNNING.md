@@ -40,6 +40,8 @@ The renderer expects Cubism 4-compatible assets. It loads the Cubism Core runtim
 
 Gestures use standard head, body, eye and mouth parameters when present. Ear visibility and blush include mappings specific to the original rig (`Param19` and `Param18`). Adapt these mappings for another model; a different model may not support the same gestures. The parameter writer checks available controls before writing.
 
+A successful model load verifies rendering, not gesture compatibility. Missing parameters are skipped, and values are clamped to the model's parameter ranges. A matching custom parameter ID can still control something different in another rig. Review the mappings in `public/carrot-duck-motion.js` and the model setup in `public/live2d-demo.html` before enabling those actions. There is no automatic model adapter or model-specific filtering of the action library in this release. Compatibility has not been verified across a collection of third-party models.
+
 For speech, set both `ELEVENLABS_API_KEY` and `ELEVENLABS_VOICE_ID` to values from your own account. Enable the voice checkbox in the interaction page. Voice text is sent to ElevenLabs; playback begins after synthesis. Browser autoplay rules can prevent sound until the page has received a user interaction.
 
 ## Optional services and data

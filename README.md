@@ -14,6 +14,23 @@ The local interface opens the autonomous interaction mode. It retrieves eligible
 
 The YouTube demonstration uses a prepared dialogue sequence to show the conversational interface, management dashboard and Live2D performance. The autonomous mode was added later. See [Demo notes](docs/DEMO.md) for the distinction and [Architecture](docs/ARCHITECTURE.md) for the two interaction paths.
 
+## Autonomous interaction flow
+
+```mermaid
+flowchart TD
+  U[User message] --> R[Account-scoped memory retrieval]
+  M[(Eligible saved memories)] --> R
+  R --> G[Generate reply and performance plan]
+  A[Affect and boundary hypotheses] --> G
+  G --> T[Text reply and cited records]
+  G --> B[Bound gesture and expression to the interaction mode]
+  B --> P[Optional Live2D character and voice]
+  P --> F[Browser playback report]
+  F -. Informs the next turn .-> G
+```
+
+The diagram shows the autonomous path exposed by the local interface. Memories enter this path through the explicit save form. Playback reports describe browser execution; they do not measure the user's reaction.
+
 ## Run locally
 
 Use Node.js 24 or newer and npm.
@@ -33,6 +50,14 @@ npm start
 Open <http://127.0.0.1:3002>, create a local test account and continue to autonomous interaction. Save an invented experience with the memory form, then ask a related question. Open the inspect panel to compare the reply with its cited source and selected performance.
 
 Text interaction works without character assets. The purchased model shown in the video is not included. To use a licensed model or enable speech, follow [Running and configuration](docs/RUNNING.md). The local entry page replaces the deployed application's bundled interface; the research and administration services are included as APIs.
+
+| Experience | What you need |
+| --- | --- |
+| Text replies, memory retrieval and plan inspection | Node.js, installed dependencies and a valid DeepSeek API key |
+| Animated character | A licensed Cubism 4-compatible model, with parameter mappings checked for that rig |
+| Spoken replies | An ElevenLabs API key and voice ID |
+
+Loading another model does not guarantee every gesture or expression will work. Standard head, eye and mouth controls are used where available; custom controls such as ears and blush need model-specific mappings. This release does not automatically adapt the action library to a new model.
 
 ## Tests
 
