@@ -6,9 +6,13 @@ I developed CARROT DUCK to explore when an AI companion's recollection feels per
 
 [Project website](https://shiruifu.online/projects/carrot-duck/) · [Developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4)
 
+This repository is a runnable research prototype, with backend source and a small local interface for autonomous conversation. Follow the setup instructions below to run it with your own provider credentials. The full hosted application is at [carrotduck.online](https://carrotduck.online/); its accounts and data are separate from a local installation.
+
 ## Demonstration
 
-[![Duck speaking about an earlier encounter in the recorded Live2D demonstration](docs/images/duck-speaking.jpg)](https://youtu.be/8uiZaVtBBH4)
+[![CARROT DUCK — character and conversation in the hosted Performance interface](docs/images/performance.jpg)](https://youtu.be/8uiZaVtBBH4)
+
+Cover: the hosted Performance interface. Click the image to watch the developer demonstration.
 
 **[Watch the developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4).** In this prepared sequence, Duck recalls an earlier encounter with a cat and uses its fox ears as part of a playful response. The recording shows the deployed interface; the autonomous mode in this repository was added later. [Demo notes](docs/DEMO.md) include a second frame and explain what the recording demonstrates.
 
@@ -23,6 +27,12 @@ Screenshots supplied by the developer from the hosted application. Click a frame
 ## What is in this repository
 
 The source includes the dialogue service, memory retrieval, relationship and boundary policies, and character performance controller. Research services record candidate moments of perceived personal recognition (PPR) for examination alongside the user's response. These records support analysis; a system-assigned label does not establish that a user felt recognized.
+
+| Part of the project | Role and release scope |
+| --- | --- |
+| Continuity across conversations | Memory, configurable personality and experimental relationship policies provide context for later exchanges. The wider dialogue and research services are included in source. |
+| Expression within a turn | The performance controller coordinates a reply with a supported gesture, facial expression and optional voice. This is the character layer used to present the interaction. |
+| Local autonomous demo | The included interface exposes retrieval, generated replies, performance plans and playback reports. This path does not automatically update the experimental relationship model. |
 
 The local interface opens the autonomous interaction mode. It retrieves eligible memories from the current account, generates a reply and a bounded performance plan, and shows the records cited by the model. The plan combines a gesture with a facial expression and an optional change to the character's ears. Browser playback reports can inform the next turn. Daily conversation uses smaller movements than the performance setting.
 
