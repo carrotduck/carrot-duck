@@ -6,7 +6,7 @@ I developed CARROT DUCK to explore when an AI companion's recollection feels per
 
 [Project website](https://shiruifu.online/projects/carrot-duck/) · [Developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4)
 
-This repository is a runnable research prototype, with backend source and a small local interface for autonomous conversation. Follow the setup instructions below to run it with your own provider credentials. The full hosted application is at [carrotduck.online](https://carrotduck.online/); its accounts and data are separate from a local installation.
+This repository is a runnable research prototype, with backend source, the web interface, editable performance controllers and the Duck character example. Follow the setup instructions below to run it with your own provider credentials. The full hosted application is at [carrotduck.online](https://carrotduck.online/); its accounts and data are separate from a local installation.
 
 Start with the video below. [From the video to the current prototype](docs/DEMO.md#from-the-video-to-the-current-prototype) connects the recorded exchange to steps you can run locally and questions for a future study. The [system notes](docs/AGENT_SYSTEMS.md) explain personality adaptation, affective confidence and relationship policies.
 
@@ -26,7 +26,7 @@ Cover: the hosted Performance interface. Click the image to watch the developer 
 | --- | --- | --- |
 | [![Home page with calendar and optional reminders](docs/images/home.jpg)](docs/images/home.jpg) | [![Chat page with the sticker picker open](docs/images/chat.jpg)](docs/images/chat.jpg) | [![Performance page with Duck listening beside the conversation](docs/images/performance.jpg)](docs/images/performance.jpg) |
 
-Screenshots supplied by the developer from the hosted application. Click a frame to view it at full size. The public repository starts with a smaller local account and autonomous interaction interface; it does not include the hosted application's compiled front end.
+Screenshots supplied by the developer from the hosted application. Click a frame to view it at full size. The repository includes this web interface as a compiled build, alongside editable character and autonomous interaction scripts. See [Frontend files](docs/FRONTEND.md) for the source/build distinction.
 
 ## What is in this repository
 
@@ -43,13 +43,13 @@ The source includes the dialogue service, memory retrieval, relationship and bou
 
 [Agent systems and research questions](docs/AGENT_SYSTEMS.md) explains how these mechanisms are implemented, which routes use them, and what remains to be evaluated.
 
-The local interface opens the autonomous interaction mode. It retrieves eligible memories from the current account, generates a reply and a bounded performance plan, and shows the records cited by the model. The plan combines a gesture with a facial expression and an optional change to the character's ears. Browser playback reports can inform the next turn. Daily conversation uses smaller movements than the performance setting.
+The homepage opens the full application. The Autonomous link opens a separate interaction mode. It retrieves eligible memories from the current account, generates a reply and a bounded performance plan, and shows the records cited by the model. The plan combines a gesture with a facial expression and an optional change to the character's ears. Browser playback reports can inform the next turn. Daily conversation uses smaller movements than the performance setting.
 
 For each autonomous reply, a reviewer can compare the cited memory with the generated wording and selected gesture. This helps identify a correct recollection presented awkwardly, or an expressive reply that misreads its source. See [Architecture](docs/ARCHITECTURE.md) for the autonomous path and the wider research services.
 
 ## Duck as the character example
 
-The current Live2D controller supports nodding, head turns, gaze shifts and facial expression through the model's available parameters. Duck's rig also provides the ear and blush controls used in the character example. In voiced turns, the main gesture starts with audio playback and releases when the turn ends or is interrupted.
+Duck combines head turns, gaze shifts, nods and body movement with hand poses, a cheek-rest pose, ear visibility and blush. The rig also contains a held lantern and a flame control, plus a darkened-face expression for an angry-looking response. The stage exposes eight native motion clips and eight expression presets; the authored controller adds 15 parameter gestures. The autonomous planner currently selects from 11 of those gestures. These layers and their controls are listed in [Character capabilities](docs/CHARACTER.md). In voiced turns, the main gesture starts with audio playback and releases when the turn ends or is interrupted.
 
 | Interaction | Current autonomous behavior |
 | --- | --- |
@@ -93,16 +93,16 @@ Copy `.env.example` to `.env`, add your own `DEEPSEEK_API_KEY`, then run:
 npm start
 ```
 
-Open <http://127.0.0.1:3002>, create a local test account and continue to autonomous interaction. Save an invented experience with the memory form, then ask a related question. Open the inspect panel to compare the reply with its cited source and selected performance.
+Open <http://127.0.0.1:3002> to set up a local account and use Home, Chat, Performance, Diary and Settings. For an inspectable memory test, open [the local account helper](http://127.0.0.1:3002/local-demo.html) and continue to autonomous interaction. Save an invented experience with the memory form, then ask a related question. Open the inspect panel to compare the reply with its cited source and selected performance.
 
 Keep the server running while using that address: `127.0.0.1` refers to your own computer. On Windows, `start-local.cmd` starts it after installation and configuration. A “connection refused” message usually means the server has not started or has stopped.
 
-Text interaction works without character assets. The model shown in the video is not included. To use a licensed model or enable speech, follow [Running and configuration](docs/RUNNING.md). The local entry page replaces the deployed application's bundled interface; the research and administration services are included as APIs.
+The Duck model is included and selected by default. Speech requires your own voice credentials; see [Running and configuration](docs/RUNNING.md). The account, conversations and memories belong to this local installation.
 
 | Experience | What you need |
 | --- | --- |
 | Text replies, memory retrieval and plan inspection | Node.js, installed dependencies and a valid DeepSeek API key |
-| Animated character | A licensed Cubism 4-compatible model, with parameter mappings checked for that rig |
+| Animated character | Included Duck assets and internet access for the rendering runtime; other rigs need checked parameter mappings |
 | Spoken replies | An ElevenLabs API key and voice ID |
 
 Loading another model does not guarantee every gesture or expression will work. Standard head, eye and mouth controls are used where available; custom controls such as ears and blush need model-specific mappings. This release does not automatically adapt the action library to a new model.
@@ -119,10 +119,10 @@ Tests use synthetic fixtures and temporary databases. They cover memory boundari
 
 Retrieval and generation can misinterpret a memory. Source IDs help trace a response but do not verify its meaning. The character controller depends on the parameters available in each model; this version plans one main gesture per turn and does not support arbitrary objects or physical robot movement. The autonomous page saves new long-term memories only through its explicit memory form.
 
-The project is implemented in JavaScript with Node.js, Express, SQLite and Live2D. There is no Unity or Unreal Engine project in this release.
+The project is implemented in JavaScript with Node.js, Express, SQLite and Live2D.
 
 ## License and attribution
 
-Original code and documentation are available under the [MIT License](LICENSE). Third-party dependencies and artwork depicted in screenshots have their own terms; see [Third-party notices](THIRD_PARTY_NOTICES.md). Conversation databases, private memory records, model files and provider credentials are excluded.
+Original code and documentation are available under the [MIT License](LICENSE). Third-party dependencies and artwork depicted in screenshots have their own terms; see [Third-party notices](THIRD_PARTY_NOTICES.md). Conversation databases, private memory records and provider credentials are excluded. The included third-party model is outside the MIT grant; its author and original license still need to be documented.
 
 Project by [Shirui Fu](https://shiruifu.online/). Citation metadata is in [CITATION.cff](CITATION.cff).

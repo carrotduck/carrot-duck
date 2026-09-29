@@ -166,7 +166,7 @@
     <aside>
       <header>
         <h1>CARROT DUCK</h1>
-        <p id="previewLabel">动作排练</p>
+        <p id="previewLabel">动作与表情预览 · Motion and expression preview</p>
       </header>
 
       <div class="chips" aria-label="动作">
@@ -178,6 +178,13 @@
         <button class="secondary" data-action="greet">招呼</button>
         <button class="secondary" data-action="shy">含蓄</button>
         <button class="secondary" data-action="breathe">放松</button>
+        <button class="secondary" data-action="attentiveLean">侧身倾听</button>
+        <button class="secondary" data-action="patientNod">耐心点头</button>
+        <button class="secondary" data-action="earReveal">耳朵</button>
+        <button class="secondary" data-action="offerHead">摸头邀请</button>
+        <button class="secondary" data-action="amused">忍笑</button>
+        <button class="secondary" data-action="rememberedSmile">回忆微笑</button>
+        <button class="secondary" data-action="caughtMe">被发现</button>
       </div>
       <label>
         <span>动作强度 <output id="intensityValue">100%</output></span>
@@ -225,6 +232,8 @@
         <select id="expression">
           <option value="hong">hong / 脸红</option>
           <option value="bloom">bloom</option>
+          <option value="neichen">neichen / 内衬</option>
+          <option value="hair">hair / 头发</option>
           <option value="sou">sou</option>
           <option value="hei">hei</option>
           <option value="era">era</option>
@@ -238,6 +247,9 @@
         <button class="secondary" data-motion="tuolian">tuolian</button>
         <button class="secondary" data-motion="xiangzhi">xiangzhi</button>
         <button class="secondary" data-motion="xu">xu</button>
+        <button class="secondary" data-motion="close">close</button>
+        <button class="secondary" data-motion="fire">fire · lamp flame</button>
+        <button class="secondary" data-motion="fulu">fulu</button>
       </div>
 
       <div class="meter"><div id="mouthMeter"></div></div>
@@ -263,9 +275,9 @@
     const expressionEl = document.getElementById('expression');
     const framingEl = document.getElementById('framing');
     const params = new URLSearchParams(location.search);
-    const rehearsalMode = params.get('rehearsal') === '1'
+    const previewMode = params.get('preview') === '1'
       && ['127.0.0.1', 'localhost'].includes(location.hostname);
-    const embedMode = !rehearsalMode;
+    const embedMode = !previewMode;
     if (embedMode) document.body.classList.add('embed');
     else document.body.classList.remove('embed');
     let app;

@@ -4,7 +4,8 @@ node_modules/
 !.env.example
 data/
 public/uploads/
-public/live2d/
+public/live2d/*
+!public/live2d/fox/
 public/stickers/
 *.db
 *.sqlite*

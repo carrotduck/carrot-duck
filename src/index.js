@@ -38,7 +38,7 @@ app.use(secureHeaders);
 app.use(express.json({ limit: '10mb' }));
 app.use(rateLimit);
 app.get('/api/demo-config', (_req, res) => {
-  const candidate = process.env.LIVE2D_MODEL_PATH || '';
+  const candidate = process.env.LIVE2D_MODEL_PATH || '/live2d/fox/fox.model3.json';
   const model = /^\/live2d\/[a-zA-Z0-9_/-]+\.model3\.json$/.test(candidate) && !candidate.includes('..') ? candidate : null;
   res.json({ model, voice: Boolean(process.env.ELEVENLABS_API_KEY && process.env.ELEVENLABS_VOICE_ID) });
 });

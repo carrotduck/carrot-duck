@@ -6,7 +6,7 @@ In the video, Duck recalls that petting a cat helped the user feel better, revea
 
 The autonomous mode was added later. It retrieves memories from the current account and generates a reply and performance plan. Its inspector shows candidate memories and the records cited by the model. With a configured character, the browser reports whether playback started, completed, failed or was cancelled. Neither recording a performance nor logging its completion establishes that the user felt recognized.
 
-The public repository provides a smaller local interface for running this path. The video remains the reference for the deployed application's broader interface. A reproduction with another licensed model will differ visually from the recording.
+The public repository includes the web interface and Duck model shown in the recording, as well as the later autonomous interaction page. The recorded conversation remains a prepared demonstration; installing these files does not reproduce its exact dialogue.
 
 ## From the video to the current prototype
 

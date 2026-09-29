@@ -21,6 +21,20 @@ The system tracks interaction state through browser reports. Preparation, speech
 
 The [recorded demonstration](DEMO.md) uses a prepared exchange. The autonomous planner was added later and uses account-scoped memories and generated replies. The recording illustrates the presentation design, while the local inspect panel exposes the current planner's decisions.
 
+
+## Action library
+
+The included rig exposes several layers of control. Open `/live2d-demo.html?preview=1` to preview native clips and expression presets; the Autonomous page uses the narrower planner vocabulary below.
+
+| Layer | Available controls |
+| --- | --- |
+| Native model clips (8) | `think`, `walk`, `close`, `fire`, `fulu`, `tuolian`, `xiangzhi`, `xu`. These are the asset's original identifiers. `tuolian` controls a cheek-rest pose; `fire` animates the lantern flame. Other clips include hand/arm and pose controls. |
+| Native expression presets (8) | `bloom`, `era`, `hei`, `hong`, `sou`, `waigua`, `neichen`, `hair`. These include blush, a darkened-face effect, ears and appearance changes. The darkened-face preset can convey anger in context; it does not indicate detected user anger. |
+| Authored parameter gestures (15) | `softSmile`, `nod`, `shakeHead`, `listening`, `thinking`, `shy`, `breathe`, `greet`, `attentiveLean`, `patientNod`, `earReveal`, `offerHead`, `amused`, `rememberedSmile`, `caughtMe`. |
+| Autonomous planner vocabulary (11) | `listening`, `nod`, `softSmile`, `thinking`, `shakeHead`, `greet`, `breathe`, `attentiveLean`, `offerHead`, `earReveal`, `rememberedSmile`. |
+
+Head and body rotation, gaze, hand/arm poses, the held lantern, ears and blush belong to the current model's rig. A visible lantern is a drawn accessory with supplied controls, not an arbitrary object the agent can pick up. Native clips can be previewed directly but are not all selected by the autonomous planner. Extending autonomous selection requires a named action mapping, interruption behavior and checks against the intended conversational use.
+
 ## What a 3D implementation could add
 
 A 3D character could provide full-body poses and spatially directed gestures. For example, a reply might orient the character toward a chair or accompany an invitation with a reaching motion. These are possible extensions, not features obtained merely by loading a 3D file.
@@ -32,6 +46,6 @@ A 3D character could provide full-body poses and spatially directed gestures. Fo
 | Reaching for or holding an object | A manipulable scene object, hand targets, inverse kinematics and contact/attachment logic |
 | Reusing dialogue and memory services | An adapter translating performance intent into supported 3D actions and reporting playback outcomes |
 
-The current browser renderer is built for Live2D. A 3D renderer would need its own action capabilities and execution layer; the existing parameter writer cannot drive a 3D rig. The proposed adapter would also need cancellation and failure handling so dialogue can continue when an action is unavailable. There is no Unity or Unreal Engine project in this release.
+The current browser renderer is built for Live2D. A 3D renderer would need its own action capabilities and execution layer; the existing parameter writer cannot drive a 3D rig. The proposed adapter would also need cancellation and failure handling so dialogue can continue when an action is unavailable.
 
 Future evaluation should examine whether these additional movements help users interpret a recalled detail, and when they become distracting or intrusive. More animation controls alone would not demonstrate a more natural interaction.

@@ -43,9 +43,7 @@ The character controller makes the presentation observable through gestures, exp
 
 ## Research context
 
-Yang, Guo and Mousas's [Exploring Familiarity and Knowledgeability in Conversational Virtual Agents](https://doi.org/10.1145/3757062) examines familiar versus unfamiliar agent identity alongside domain knowledge. Familiarity there concerns resemblance to a known person, which differs from CARROT DUCK's interest in continuity built through remembered exchanges. The connection motivates separating a character's information access from the user's interpretation of that access.
-
-Yang, Duque and Mousas's [The Effects of Depth of Knowledge of a Virtual Agent](https://doi.org/10.1109/TVCG.2024.3456148) studies how different knowledge levels affect perceptions of a conversational agent in VR. CARROT DUCK raises a related question about personal context: a correct recollection may still be poorly timed or unwelcome. These papers inform possible evaluation questions; this repository does not reproduce their experiments.
+[LPM](https://large-performance-model.github.io/) is a reference for the project's interest in coordinating character performance with dialogue. CARROT DUCK implements this through authored Live2D controls and a bounded performance planner. No LPM model or training procedure is included. The evaluation questions here concern how people interpret remembered personal details when those details accompany a character response.
 
 ## Proposed evaluation and demonstration
 

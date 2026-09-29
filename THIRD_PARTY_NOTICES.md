@@ -4,7 +4,9 @@ The MIT license in this repository covers original CARROT DUCK code and document
 
 Node dependencies are listed in `package.json` and resolved in `package-lock.json`. Their licenses are distributed with the respective packages. The browser renderer references PixiJS, pixi-live2d-display and the Live2D Cubism Core runtime; users must follow their applicable licenses and runtime terms.
 
-The Live2D model files, textures, motion files, user stickers and uploaded media are excluded. Supply assets you are permitted to use. The demonstration model's original author and distribution license have not yet been recovered, so it is not bundled or assigned this project's MIT license.
+The compiled application bundle includes React and React DOM 19.2.7. Their upstream MIT notice is preserved in [React-LICENSE.txt](public/assets/licenses/React-LICENSE.txt).
+
+The Duck example under `public/live2d/fox/` is included at the project owner's request. The owner identifies it as open source, but the original author, publication URL and license text have not yet been recovered. This is not a verified license identification. The project MIT license does not cover these assets or grant additional rights to them. See [model notice](public/live2d/fox/README.md). User stickers and uploaded media remain excluded.
 
 The documentation screenshots in `docs/images/` include frames from Shirui Fu's developer demonstration and interface captures supplied by the developer. They depict third-party character or sticker artwork and are not offered under the repository's MIT license. Including these screenshots or linking to the video does not grant rights to extract or reuse its artwork, character assets or audio. See [image provenance](docs/images/README.md).
 

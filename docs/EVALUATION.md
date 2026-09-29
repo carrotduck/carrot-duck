@@ -29,4 +29,4 @@ Specify the primary question and outcome, participant tasks, condition assignmen
 
 The next useful steps are to preserve inspectable evidence from real autonomous runs, implement matched comparison controls, and separate user evidence from the assistant's own wording in personality updates. Persistent boundary handling should be tested separately from the current refusal guard, which checks the current input and bounded recent history. These changes would make the prototype easier to evaluate before expanding the renderer to 3D.
 
-These questions relate to work on how people perceive conversational agents' knowledge and familiarity, including the studies discussed in [Agent systems and research questions](AGENT_SYSTEMS.md). CARROT DUCK focuses on personal recollection and its timing. The [walkthrough](AUTONOMOUS_WALKTHROUGH.md) provides a starting point for checking the implementation before collecting participant reports.
+CARROT DUCK focuses on personal recollection and its timing. The [walkthrough](AUTONOMOUS_WALKTHROUGH.md) provides a starting point for checking the implementation before collecting participant reports.

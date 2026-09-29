@@ -1,0 +1,116 @@
+{
+  "Version": 3,
+  "FileReferences": {
+    "Moc": "狐狸.moc3",
+    "Textures": [
+      "狐狸.4096/texture_00.png",
+      "狐狸.4096/texture_01.png",
+      "狐狸.4096/texture_02.png",
+      "狐狸.4096/texture_03.png",
+      "狐狸.4096/texture_04.png"
+    ],
+    "Physics": "狐狸.physics3.json",
+    "DisplayInfo": "狐狸.cdi3.json",
+    "Expressions": [
+      {
+        "Name": "bloom",
+        "File": "bloom.exp3.json"
+      },
+      {
+        "Name": "era",
+        "File": "era.exp3.json"
+      },
+      {
+        "Name": "hei",
+        "File": "hei.exp3.json"
+      },
+      {
+        "Name": "hong",
+        "File": "hong.exp3.json"
+      },
+      {
+        "Name": "sou",
+        "File": "sou.exp3.json"
+      },
+      {
+        "Name": "waigua",
+        "File": "waigua.exp3.json"
+      },
+      {
+        "Name": "neichen",
+        "File": "内衬.exp3.json"
+      },
+      {
+        "Name": "hair",
+        "File": "头发.exp3.json"
+      }
+    ],
+    "Motions": {
+      "Idle": [
+        {
+          "File": "think.motion3.json"
+        },
+        {
+          "File": "xu.motion3.json"
+        }
+      ],
+      "think": [
+        {
+          "File": "think.motion3.json"
+        }
+      ],
+      "walk": [
+        {
+          "File": "walk.motion3.json"
+        }
+      ],
+      "close": [
+        {
+          "File": "close.motion3.json"
+        }
+      ],
+      "fire": [
+        {
+          "File": "fire.motion3.json"
+        }
+      ],
+      "fulu": [
+        {
+          "File": "fulu.motion3.json"
+        }
+      ],
+      "tuolian": [
+        {
+          "File": "tuolian.motion3.json"
+        }
+      ],
+      "xiangzhi": [
+        {
+          "File": "xiangzhi.motion3.json"
+        }
+      ],
+      "xu": [
+        {
+          "File": "xu.motion3.json"
+        }
+      ]
+    }
+  },
+  "Groups": [
+    {
+      "Target": "Parameter",
+      "Name": "EyeBlink",
+      "Ids": [
+        "ParamEyeLOpen",
+        "ParamEyeROpen"
+      ]
+    },
+    {
+      "Target": "Parameter",
+      "Name": "LipSync",
+      "Ids": [
+        "ParamMouthOpenY"
+      ]
+    }
+  ]
+}
