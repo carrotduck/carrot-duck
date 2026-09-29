@@ -6,7 +6,7 @@ Node dependencies are listed in `package.json` and resolved in `package-lock.jso
 
 The compiled application bundle includes React and React DOM 19.2.7. Their upstream MIT notice is preserved in [React-LICENSE.txt](public/assets/licenses/React-LICENSE.txt).
 
-The Duck example under `public/live2d/fox/` is included at the project owner's request. The owner identifies it as open source, but the original author, publication URL and license text have not yet been recovered. This is not a verified license identification. The project MIT license does not cover these assets or grant additional rights to them. See [model notice](public/live2d/fox/README.md). User stickers and uploaded media remain excluded.
+Third-party model files are excluded from the current repository. Users must supply models they are licensed to use; see the [loading instructions](public/live2d/fox/README.md). User stickers and uploaded media are also excluded.
 
 The documentation screenshots in `docs/images/` include frames from Shirui Fu's developer demonstration and interface captures supplied by the developer. They depict third-party character or sticker artwork and are not offered under the repository's MIT license. Including these screenshots or linking to the video does not grant rights to extract or reuse its artwork, character assets or audio. See [image provenance](docs/images/README.md).
 

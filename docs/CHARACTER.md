@@ -24,7 +24,7 @@ The [recorded demonstration](DEMO.md) uses a prepared exchange. The autonomous p
 
 ## Action library
 
-The included rig exposes several layers of control. Open `/live2d-demo.html?preview=1` to preview native clips and expression presets; the Autonomous page uses the narrower planner vocabulary below.
+The demonstration rig exposes several layers of control; its model files are not included. Open `/live2d-demo.html?preview=1` to preview native clips and expression presets; the Autonomous page uses the narrower planner vocabulary below.
 
 | Layer | Available controls |
 | --- | --- |

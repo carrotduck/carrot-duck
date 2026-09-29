@@ -1,6 +1,6 @@
 # Running CARROT DUCK
 
-The release includes the web interface, backend services, autonomous interaction page and Duck character assets. The main interface is a compiled build; the performance and autonomous scripts are editable source. See [Frontend files](FRONTEND.md).
+The release includes the web interface, backend services, autonomous interaction page and character-loading support. The main interface is a compiled build; the performance and autonomous scripts are editable source. See [Frontend files](FRONTEND.md).
 
 ## Install and start
 
@@ -30,9 +30,9 @@ The service can start without a model key, and the tests run without one. Autono
 
 ## Character and voice
 
-The included Duck model loads by default. Open `/live2d-demo.html?preview=1` to inspect its native motions and expressions, or use Performance in the main interface. Model attribution and license status are recorded in [the model notice](../public/live2d/fox/README.md).
+Model files are not included. Text replies and plan inspection work without a character. Follow the [model-loading instructions](../public/live2d/fox/README.md) to enable animation.
 
-To substitute another model you are licensed to run:
+To load a model you are licensed to run:
 
 1. Place its model JSON, textures, motions and related files under `public/live2d/`, preserving relative paths.
 2. Set `LIVE2D_MODEL_PATH` to a same-origin path such as `/live2d/my-model/my-model.model3.json`.
@@ -50,7 +50,7 @@ For speech, set both `ELEVENLABS_API_KEY` and `ELEVENLABS_VOICE_ID` to values fr
 
 Lexical memory retrieval works without embeddings. Configure the `EMBEDDING_*` values to enable the existing embedding path. Other provider adapters are included in the source, but are not needed for the basic autonomous demo.
 
-Data is written to `data/` by default. `DATA_DIR` can point to a separate directory. Use a new directory for experiments; do not substitute an existing deployment database. The repository ignores local databases, uploads, additional model folders and `.env` files. Only the Duck example is tracked.
+Data is written to `data/` by default. `DATA_DIR` can point to a separate directory. Use a new directory for experiments; do not substitute an existing deployment database. The repository ignores local databases, uploads, additional model folders and `.env` files. Model assets are not tracked.
 
 Background contact and maintenance jobs are disabled by default. `ENABLE_BACKGROUND_JOBS=true` enables the existing scheduler, which may make additional provider calls. An empty `ADMIN_SECRET_KEY` disables administrative access. If you deliberately expose the service beyond localhost, review authentication, HTTPS, rate limits, provider spending limits and data handling for that deployment.
 

@@ -6,7 +6,7 @@ I developed CARROT DUCK to explore when an AI companion's recollection feels per
 
 [Project website](https://shiruifu.online/projects/carrot-duck/) · [Developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4)
 
-This repository is a runnable research prototype, with backend source, the web interface, editable performance controllers and the Duck character example. Follow the setup instructions below to run it with your own provider credentials. The full hosted application is at [carrotduck.online](https://carrotduck.online/); its accounts and data are separate from a local installation.
+This repository is a runnable research prototype, with backend source, the web interface, editable performance controllers and character-loading support. Follow the setup instructions below to run it with your own provider credentials. The full hosted application is at [carrotduck.online](https://carrotduck.online/); its accounts and data are separate from a local installation.
 
 Start with the video below. [From the video to the current prototype](docs/DEMO.md#from-the-video-to-the-current-prototype) connects the recorded exchange to steps you can run locally and questions for a future study. The [system notes](docs/AGENT_SYSTEMS.md) explain personality adaptation, affective confidence and relationship policies.
 
@@ -97,12 +97,12 @@ Open <http://127.0.0.1:3002> to set up a local account and use Home, Chat, Perfo
 
 Keep the server running while using that address: `127.0.0.1` refers to your own computer. On Windows, `start-local.cmd` starts it after installation and configuration. A “connection refused” message usually means the server has not started or has stopped.
 
-The Duck model is included and selected by default. Speech requires your own voice credentials; see [Running and configuration](docs/RUNNING.md). The account, conversations and memories belong to this local installation.
+Model files are not included. Supply a licensed Live2D model using the [loading instructions](public/live2d/fox/README.md); speech requires your own voice credentials. The account, conversations and memories belong to this local installation.
 
 | Experience | What you need |
 | --- | --- |
 | Text replies, memory retrieval and plan inspection | Node.js, installed dependencies and a valid DeepSeek API key |
-| Animated character | Included Duck assets and internet access for the rendering runtime; other rigs need checked parameter mappings |
+| Animated character | Your own licensed model and internet access for the rendering runtime; check its parameter mappings |
 | Spoken replies | An ElevenLabs API key and voice ID |
 
 Loading another model does not guarantee every gesture or expression will work. Standard head, eye and mouth controls are used where available; custom controls such as ears and blush need model-specific mappings. This release does not automatically adapt the action library to a new model.
@@ -123,6 +123,6 @@ The project is implemented in JavaScript with Node.js, Express, SQLite and Live2
 
 ## License and attribution
 
-Original code and documentation are available under the [MIT License](LICENSE). Third-party dependencies and artwork depicted in screenshots have their own terms; see [Third-party notices](THIRD_PARTY_NOTICES.md). Conversation databases, private memory records and provider credentials are excluded. The included third-party model is outside the MIT grant; its author and original license still need to be documented.
+Original code and documentation are available under the [MIT License](LICENSE). Third-party dependencies and artwork depicted in screenshots have their own terms; see [Third-party notices](THIRD_PARTY_NOTICES.md). Conversation databases, private memory records and provider credentials are excluded. Third-party model files are excluded; screenshots do not grant rights to reuse the depicted artwork.
 
 Project by [Shirui Fu](https://shiruifu.online/). Citation metadata is in [CITATION.cff](CITATION.cff).

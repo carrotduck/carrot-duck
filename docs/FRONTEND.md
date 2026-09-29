@@ -9,6 +9,6 @@ The homepage serves the application's Home, Chat, Performance, Diary and Setting
 | `public/carrot-duck-motion.js`, `carrot-duck-performance.js` and `live2d-demo.html` | Editable character rendering, gestures and playback coordination. |
 | `public/autonomous.*` | Editable memory-grounded dialogue and plan inspection interface. |
 | `public/local-demo.html` and `demo-login.js` | Minimal account creation/recovery helper for the autonomous walkthrough. |
-| `public/live2d/fox/` | Third-party Duck example; see the notice in that directory. |
+| `public/live2d/fox/` | Model-loading instructions; supply your own licensed assets locally. |
 
 Run `npm start` from the repository root. There is no separate frontend build step for the bundled interface. Browser libraries for the character stage load from upstream CDNs. User-uploaded media and stickers are not bundled. The root page does not load the rehearsal-control overlay.

@@ -4,7 +4,7 @@ After watching the [prepared video](DEMO.md), use these steps to inspect a new g
 
 ## Prepare a separate test account
 
-Follow [Running and configuration](RUNNING.md), start the server and create a new local test account. Keep this account separate from personal use. Set the response language to English and the presentation mode to conversation. Leave memory enabled. The included Duck model supplies animation. Configure your own voice credentials for speech.
+Follow [Running and configuration](RUNNING.md), start the server and create a new local test account. Keep this account separate from personal use. Set the response language to English and the presentation mode to conversation. Leave memory enabled. Supply your own licensed model to enable animation, or continue with text and plan inspection. Configure your own voice credentials for speech.
 
 If character loading fails, the walkthrough still covers text replies and plans. If recording, keep provider keys, the account recovery key and personal records out of view.
 

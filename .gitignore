@@ -6,6 +6,8 @@ data/
 public/uploads/
 public/live2d/*
 !public/live2d/fox/
+public/live2d/fox/*
+!public/live2d/fox/README.md
 public/stickers/
 *.db
 *.sqlite*

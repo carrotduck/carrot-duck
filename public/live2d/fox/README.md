@@ -1,5 +1,12 @@
-# Duck character example
+# Load a licensed Live2D model
 
-These third-party Live2D assets were supplied by the project owner, who identifies the model as open source and requested its inclusion as the working example. The original author, publication URL and license text have not yet been recovered. No specific third-party license is asserted here, and the CARROT DUCK MIT license does not apply to this directory's artwork, rig, textures, motions or expressions.
+Model files are not distributed with this repository. Supply a Cubism 4-compatible model you are licensed to use.
 
-The package contains the rendering assets and native clips. Personal VTube Studio settings and pinned-item settings are omitted. The model manifest registers the supplied clips and expressions for the browser stage. Please preserve this notice; author credit and original terms should be added when the source is identified.
+1. Place the model manifest, .moc3 file, textures, physics, expressions and motions in a local folder under `public/live2d/`, preserving the package's relative paths.
+2. Set `LIVE2D_MODEL_PATH` in `.env`, for example `/live2d/my-model/my-model.model3.json`.
+3. Restart the service, then open Performance or the autonomous interaction page.
+4. Review the parameter mappings in `public/carrot-duck-motion.js` before enabling custom gestures. Ear and blush controls are specific to the demonstration rig.
+
+Local model assets are ignored by Git. Text interaction and plan inspection can be used without a model. See [Running and configuration](../../../docs/RUNNING.md) for setup and runtime requirements.
+
+The project's MIT license covers original code and documentation, not third-party character assets or artwork shown in screenshots.
