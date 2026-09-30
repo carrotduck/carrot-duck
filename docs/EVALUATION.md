@@ -1,6 +1,6 @@
 # Evaluation notes
 
-In the [prepared video](DEMO.md), Duck connects a recalled encounter with a playful gesture. Would the same words feel different without that gesture? Would an accurate reference still feel appropriate if the user wanted to change the subject? The comparisons below develop these questions into proposed studies. No participant results or controlled experiment runner are included in this release.
+In the [demonstration video](DEMO.md), Duck connects a recalled encounter with a playful gesture. Would the same words feel different without that gesture? Would an accurate reference still feel appropriate if the user wanted to change the subject? The comparisons below develop these questions into proposed studies. No participant results or controlled experiment runner are included in this release.
 
 ## Questions and comparisons
 
