@@ -18,7 +18,7 @@ Start with the video below. [From the video to the current prototype](docs/DEMO.
 
 Cover: the hosted Performance interface. Click the image to watch the developer demonstration.
 
-**[Watch the developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4).** This demonstration focuses on a memory cycle: Duck recalls an earlier encounter with a cat and uses its fox ears as part of a playful response. The recording shows the deployed application. [Demo notes](docs/DEMO.md) include a second frame and explain what the recording demonstrates.
+**[Watch the developer demonstration on YouTube](https://youtu.be/8uiZaVtBBH4).** This demonstration shows how remembered context shapes responses across interactions: Duck recalls an earlier encounter with a cat and uses its fox ears as part of a playful response. The recording shows the deployed application. [Demo notes](docs/DEMO.md) include a second frame and explain what the recording demonstrates.
 
 ### Interface gallery
 
