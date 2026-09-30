@@ -12,4 +12,4 @@ The documentation screenshots in `docs/images/` include frames from Shirui Fu's 
 
 DeepSeek, ElevenLabs and the optional embedding/search services are external providers. Configure your own credentials and follow their service terms. No voice recording, cloned voice or private voice identifier is supplied.
 
-Architectural references are listed in [Architecture](docs/ARCHITECTURE.md). The documentation edit also consulted [Academic Humanizer](https://github.com/AIScientists-Dev/academic-humanizer/blob/main/SKILL.md) for clarity and claim-evidence alignment; the skill is not bundled or installed by this project.
+Architectural references are listed in [Architecture](docs/ARCHITECTURE.md).
