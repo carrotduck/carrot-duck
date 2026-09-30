@@ -49,4 +49,4 @@ Prepared scenes in `rehearsalScenes.js` use separate rehearsal records and expli
 
 The project page cites [LPM](https://large-performance-model.github.io/) as an inspiration for coordinating dialogue and performance. The implementation here uses authored Live2D parameter gestures; it does not include an LPM model.
 
-The later performance update drew on [Open-LLM-VTuber's expression mapping](https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/main/src/open_llm_vtuber/live2d_model.py) and [Pipecat's interruption handling](https://docs.pipecat.ai/pipecat/fundamentals/interruptions). The controller in this repository was written for CARROT DUCK; these frameworks are not installed as dependencies.
+The performance implementation draws on [Open-LLM-VTuber's expression mapping](https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/main/src/open_llm_vtuber/live2d_model.py) and [Pipecat's interruption handling](https://docs.pipecat.ai/pipecat/fundamentals/interruptions). The controller in this repository was written for CARROT DUCK; these frameworks are not installed as dependencies.
