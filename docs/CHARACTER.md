@@ -19,7 +19,7 @@ The system tracks interaction state through browser reports. Preparation, speech
 | Playback feedback | Started, completed, failed or cancelled reports | Describes browser execution, not the user's reaction. |
 | Arbitrary props and scene actions | Not supported by the autonomous action library | A model's visible accessory does not make it an independently controllable object. |
 
-The [recorded demonstration](DEMO.md) uses a prepared exchange. The autonomous planner was added later and uses account-scoped memories and generated replies. The recording illustrates the presentation design, while the local inspect panel exposes the current planner's decisions.
+The [recorded demonstration](DEMO.md) illustrates how remembered context is expressed through dialogue and character performance. The autonomous planner uses account-scoped memories and generated replies, and the local inspect panel exposes its decisions.
 
 
 ## Action library
