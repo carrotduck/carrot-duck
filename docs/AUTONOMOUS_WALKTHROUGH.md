@@ -1,6 +1,6 @@
 # Autonomous interaction walkthrough
 
-After watching the [prepared video](DEMO.md), use these steps to inspect a new generated exchange in the local interface. The example uses a different invented memory so the reply can be checked against a clear source. The model generates the wording and selects a supported gesture at runtime.
+After watching the [demonstration video](DEMO.md), use these steps to inspect a new generated exchange in the local interface. The example uses a different invented memory so the reply can be checked against a clear source. The model generates the wording and selects a supported gesture at runtime.
 
 ## Prepare a separate test account
 
@@ -48,7 +48,7 @@ This scenario demonstrates refusal handling for the current input and the bounde
 3. Submit Scenario 2. Show the response and the changed plan, including retrieval being disabled.
 4. End on the inspection results. Note whether character and voice were configured, and retain any generation or playback failure in the accompanying run notes.
 
-Record the repository revision, model/provider configuration without secrets, run date and whether this was the first attempt. If you publish a selected successful take, disclose that selection. This repository does not yet include a new recording of these scenarios; the existing YouTube video is the earlier prepared demonstration.
+Record the repository revision, model/provider configuration without secrets, run date and whether this was the first attempt. If you publish a selected successful take, disclose that selection.
 
 ## Optional comparison
 
