@@ -6,7 +6,7 @@ In the video, Duck recalls that petting a cat helped the user feel better, revea
 
 The repository also provides an autonomous interaction mode. It retrieves memories from the current account and generates a reply and performance plan. Its inspector shows candidate memories and the records cited by the model. With a configured character, the browser reports whether playback started, completed, failed or was cancelled. Neither recording a performance nor logging its completion establishes that the user felt recognized.
 
-The public repository includes the web interface and Duck model shown in the recording, as well as an autonomous interaction page. Generated conversations will vary; installing these files does not reproduce the exact dialogue in the video.
+The public repository includes the web interface, editable character controllers and an autonomous interaction page. Third-party Duck model assets are not distributed; animated playback requires a licensed model configured using the [model-loading instructions](../public/live2d/fox/README.md). Generated conversations will vary; installing these files does not reproduce the exact dialogue in the video.
 
 ## From the video to the current prototype
 
