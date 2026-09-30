@@ -2,7 +2,7 @@
 
 [Watch on YouTube](https://youtu.be/8uiZaVtBBH4) · [Read the project page](https://shiruifu.online/projects/carrot-duck/)
 
-In the video, Duck recalls that petting a cat helped the user feel better, reveals its fox ears and offers a playful response. The recording also shows the conversational interface and management dashboard. This demonstration focuses on a memory cycle, showing how a remembered detail can shape both a reply and the character's expression.
+In the video, Duck recalls that petting a cat helped the user feel better, reveals its fox ears and offers a playful response. The recording also shows the conversational interface and management dashboard. This demonstration shows how remembered context shapes responses across interactions through dialogue and character expression.
 
 The repository also provides an autonomous interaction mode. It retrieves memories from the current account and generates a reply and performance plan. Its inspector shows candidate memories and the records cited by the model. With a configured character, the browser reports whether playback started, completed, failed or was cancelled. Neither recording a performance nor logging its completion establishes that the user felt recognized.
 
@@ -18,7 +18,7 @@ The video introduces a design question: why might this particular recollection f
 | The reply is accompanied by ears, expression and speech. | Compare the selected performance plan with what the browser actually plays. | How does expression change the interpretation of the same words? |
 | The exchange presents a playful invitation. | Try an explicit refusal in the walkthrough and inspect the restricted response. This refusal example is an additional case, not a scene in the video. | When should the character stop recalling a detail or reduce its expressiveness? |
 
-Use the [autonomous walkthrough](AUTONOMOUS_WALKTHROUGH.md) for inputs and inspection steps, and the [evaluation notes](EVALUATION.md) for proposed comparisons. The video focuses on the memory-cycle example; generated replies in the walkthrough will vary.
+Use the [autonomous walkthrough](AUTONOMOUS_WALKTHROUGH.md) for inputs and inspection steps, and the [evaluation notes](EVALUATION.md) for proposed comparisons. The video focuses on memory across interactions; generated replies in the walkthrough will vary.
 
 ## Frames from the recording
 
