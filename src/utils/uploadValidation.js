@@ -25,7 +25,11 @@ export function mediaFileFilter(kind) {
   return (_req, file, callback) => {
     const mime = String(file?.mimetype || '').toLowerCase();
     const ok = kind === 'image' ? mime.startsWith('image/') : mime.startsWith('audio/');
-    if (!ok) return callback(new Error(`Unsupported ${kind} upload`));
+    if (!ok) {
+      const error = new Error(`Unsupported ${kind} upload`);
+      error.code = 'UNSUPPORTED_MEDIA_UPLOAD';
+      return callback(error);
+    }
     callback(null, true);
   };
 }

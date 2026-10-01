@@ -1,4 +1,5 @@
 import express from 'express';
+import multer from 'multer';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -73,6 +74,14 @@ app.get(/^(?!\/api).*/, (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    return res.status(err.code === 'LIMIT_FILE_SIZE' ? 413 : 400).json({
+      error: 'Upload rejected', code: err.code,
+    });
+  }
+  if (err.code === 'UNSUPPORTED_MEDIA_UPLOAD') {
+    return res.status(415).json({ error: 'Unsupported media upload' });
+  }
   if ((req.path.startsWith('/stickers/') || req.path.startsWith('/uploads/')) &&
       (err.code === 'ENOENT' || err.status === 404)) {
     return res.status(404).send('Not found');

@@ -19,7 +19,7 @@ async function waitForHealth(baseUrl, child) {
   throw new Error('server health check timed out');
 }
 
-test('HTTP account migration, authorization, recovery, and mismatch protection', { timeout: 20_000 }, async () => {
+test('HTTP accounts, upload limits, recovery, and mismatch protection', { timeout: 20_000 }, async () => {
   const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'carrot-duck-http-'));
   const port = 39000 + Math.floor(Math.random() * 1000);
   const baseUrl = `http://127.0.0.1:${port}`;
@@ -57,6 +57,30 @@ test('HTTP account migration, authorization, recovery, and mismatch protection',
     const second = await create('Second');
     assert.ok(first.session_token);
     assert.ok(first.recovery_key.startsWith(`${first.user.id}.`));
+
+    const uploadAudio = async (size, type = 'audio/wav', count = 1) => {
+      const body = new FormData();
+      for (let i = 0; i < count; i++) {
+        body.append('audio', new Blob([new Uint8Array(size)], { type }), 'fixture.wav');
+      }
+      return fetch(`${baseUrl}/api/asr/transcribe`, {
+        method: 'POST', body,
+        headers: { Authorization: `Bearer ${first.session_token}` },
+      });
+    };
+    const tooLarge = await uploadAudio(8 * 1024 * 1024 + 1);
+    assert.equal(tooLarge.status, 413);
+    assert.equal((await tooLarge.json()).code, 'LIMIT_FILE_SIZE');
+    const tooMany = await uploadAudio(16, 'audio/wav', 2);
+    assert.equal(tooMany.status, 400);
+    assert.equal((await tooMany.json()).code, 'LIMIT_FILE_COUNT');
+    const unsupported = await uploadAudio(16, 'text/plain');
+    assert.equal(unsupported.status, 415);
+    assert.equal((await unsupported.json()).error, 'Unsupported media upload');
+    const invalidAudio = await uploadAudio(16);
+    assert.equal(invalidAudio.status, 415);
+    assert.equal((await invalidAudio.json()).error, 'unsupported audio data');
+    assert.equal((await fetch(`${baseUrl}/api/health`)).status, 200);
 
     const noAuth = await fetch(`${baseUrl}/api/chat/${first.user.id}/messages`);
     assert.equal(noAuth.status, 401);
