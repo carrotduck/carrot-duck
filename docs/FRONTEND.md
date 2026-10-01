@@ -4,7 +4,7 @@ The homepage serves the application's Home, Chat, Performance, Diary and Setting
 
 | Files | Editing and use |
 | --- | --- |
-| `public/assets/index-BxtniLRm.js` and `index-TpItDqpy.css` | Compiled JavaScript and CSS from the project deployment. The original component project and build configuration have not been recovered, so this release cannot rebuild this bundle from component source. |
+| `public/assets/index-BxtniLRm.js` and `index-TpItDqpy.css` | Compiled JavaScript and CSS from the project deployment. The original component project and build configuration have not been recovered. |
 | `public/carrot-duck-performance-page.js` | Editable Performance view and conversation integration. |
 | `public/carrot-duck-motion.js`, `carrot-duck-performance.js` and `live2d-demo.html` | Editable character rendering, gestures and playback coordination. |
 | `public/autonomous.*` | Editable memory-grounded dialogue and plan inspection interface. |
