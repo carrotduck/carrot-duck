@@ -35,6 +35,7 @@ This makes it possible to examine how the same remembered detail is expressed. A
 | [Agent systems](docs/AGENT_SYSTEMS.md) | See how personality and relationship rules work across the dialogue routes. |
 | [Character controls](docs/CHARACTER.md) | Inspect the gestures and their Live2D parameter mappings. |
 | [Evaluation notes](docs/EVALUATION.md) | Read the proposed comparisons and measures of user experience. |
+| [Research references](docs/RESEARCH_REFERENCES.md) | Connect design decisions to literature and questions for evaluation. |
 
 ## Run locally
 
