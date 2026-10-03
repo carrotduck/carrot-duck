@@ -16,21 +16,21 @@ flowchart LR
 
 ## Autonomous interaction
 
-`src/routes/autonomous.js` owns this path. `src/services/autonomous.js` expands a retrieval query, combines retrieved and recent eligible records, and asks the model for a reply with record IDs and a supported action. References are checked against the supplied candidates. This check catches unknown IDs; it cannot establish that a paraphrase is faithful.
+`src/routes/autonomous.js` owns this path. `src/services/autonomous.js` expands a retrieval query, combines retrieved and recent eligible records, and asks the model for a reply with record IDs and a supported action. Reference checks catch IDs outside the supplied candidates.
 
-`autonomousPerformance.js` bounds the generated plan using the communication intent, affect hypotheses, refusal state and presentation mode. The plan has one main gesture, an independent facial channel and a limited ear-visibility setting. Repeated high-salience gestures are reduced. The browser's state is supplied as a report, without implying camera perception or awareness of the user's room.
+`autonomousPerformance.js` bounds the generated plan using the communication intent, affect hypotheses, refusal state and presentation mode. The plan has one main gesture, an independent facial channel and a limited ear-visibility setting. Repeated high-salience gestures are reduced. The browser supplies playback-state reports.
 
 `public/carrot-duck-performance.js` owns preparation, activation and cancellation. In voiced turns, the main gesture starts when audio actually plays. The motion controller blends parameters and returns toward neutral after release. Mouth opening follows speech. Terminal playback reports are stored separately and can inform the next turn; a late report cannot turn a cancelled performance into a completed one.
 
-Autonomous turns and their retrieval traces are stored in `autonomous_turns`. Playback reports are stored in `autonomous_delivery`. This path does not automatically write formal PPR outcomes, update the relationship model or turn every new utterance into a long-term memory. The explicit memory form is the write path exposed in its interface.
+Autonomous turns and their retrieval traces are stored in `autonomous_turns`. Playback reports are stored in `autonomous_delivery`. The interface exposes an explicit memory form for saving long-term memories. Relationship updates and PPR outcome records belong to the original chat route.
 
 ## Wider dialogue and research services
 
 See [Agent systems and research questions](AGENT_SYSTEMS.md) for personality drift, affective confidence, relationship policies and their route-specific limits.
 
-The original chat route uses context retrieval, affective signals, relationship policies and expression planning. Modules such as `ppr.js`, `relationalState.js` and `adminAnalytics.js` support recording and reviewing candidate recognition events. Their internal labels are operational categories for inspection. User studies would be needed to assess perceived recognition or naturalness.
+The original chat route uses context retrieval, affective signals, relationship policies and expression planning. Modules such as `ppr.js`, `relationalState.js` and `adminAnalytics.js` support recording and reviewing candidate recognition events. Their internal labels are operational categories for inspection.
 
-Prepared scenes in `rehearsalScenes.js` use separate rehearsal records and explicit progression. They support repeatable developer demonstrations and are not used as a fallback by the autonomous generator. Body-event services are present for the separate rehearsal work; the autonomous page has no physical robot transport.
+Prepared scenes in `rehearsalScenes.js` use separate rehearsal records and explicit progression for repeatable demonstrations. The autonomous generator reports a failure when generation is unavailable. Body-event services support the separate robot rehearsal path.
 
 ## Source map
 
@@ -47,6 +47,6 @@ Prepared scenes in `rehearsalScenes.js` use separate rehearsal records and expli
 
 ## Design references
 
-The project page cites [LPM](https://large-performance-model.github.io/) as an inspiration for coordinating dialogue and performance. The implementation here uses authored Live2D parameter gestures; it does not include an LPM model.
+The project page cites [LPM](https://large-performance-model.github.io/) as an inspiration for coordinating dialogue and performance. CARROT DUCK uses authored Live2D parameter gestures.
 
-The performance implementation draws on [Open-LLM-VTuber's expression mapping](https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/main/src/open_llm_vtuber/live2d_model.py) and [Pipecat's interruption handling](https://docs.pipecat.ai/pipecat/fundamentals/interruptions). The controller in this repository was written for CARROT DUCK; these frameworks are not installed as dependencies.
+The controller was written for CARROT DUCK, with design references to [Open-LLM-VTuber's expression mapping](https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/main/src/open_llm_vtuber/live2d_model.py) and [Pipecat's interruption handling](https://docs.pipecat.ai/pipecat/fundamentals/interruptions).
