@@ -18,6 +18,6 @@ At approximately 00:57, Duck is idle with its ears hidden.
 
 [![Duck recalling the encounter with its ears visible](images/duck-speaking.jpg)](https://youtu.be/8uiZaVtBBH4?t=70)
 
-At approximately 01:10, Duck speaks about the cat encounter with its ears visible. The transition connects the remembered detail to the character's playful invitation.
+At approximately 01:10, Duck speaks about the cat encounter with its ears visible.
 
 See [image provenance](images/README.md) for frame sources and artwork attribution, and [Running and configuration](RUNNING.md) to set up the interface with a licensed character model.

@@ -8,7 +8,7 @@ CARROT DUCK asks when a response feels grounded in a particular relationship. I 
 
 Duck translates these choices into initial trait values through authored rules in [`personality.js`](../src/services/personality.js). In the chat route, predefined text patterns trigger small, bounded changes; conscientiousness remains unchanged. A proposed comparison would examine whether users understand and welcome these changes, alongside fixed settings and explicit user adjustment.
 
-**Lo, Huang and Lo, [LLM-based robot personality simulation and cognitive system](https://doi.org/10.1038/s41598-025-01528-8) (2025).** This system combines personal constructs and Cattell's 16PF with an LLM, and uses IPIP-NEO measures in evaluation. It provides a reference for representing and assessing character personality.
+**Lo, Huang and Lo, [LLM-based robot personality simulation and cognitive system](https://doi.org/10.1038/s41598-025-01528-8) (2025).** This system combines personal constructs and Cattell's 16PF with an LLM, and uses IPIP-NEO measures in evaluation.
 
 Two further papers help frame the onboarding question:
 
@@ -31,7 +31,7 @@ Duck's [`keepalive.js`](../src/services/keepalive.js) implements scheduled backg
 
 ## Conversational performance
 
-**Zeng et al., [LPM 1.0: Video-based Character Performance Model](https://arxiv.org/abs/2604.07823v2) (2026, v2).** LPM treats listening and speaking as parts of sustained audiovisual character performance. This is a useful reference for considering the character's behaviour across a whole turn, including while the user speaks.
+**Zeng et al., [LPM 1.0: Video-based Character Performance Model](https://arxiv.org/abs/2604.07823v2) (2026, v2).** LPM treats listening and speaking as parts of sustained audiovisual character performance. In Duck, the design focus is the character's behaviour while listening and replying.
 
 Duck coordinates authored Live2D controls with speech to maintain continuity across a turn. Implementation details are in [Character controls](CHARACTER.md); proposed comparisons are in [Evaluation notes](EVALUATION.md).
 

@@ -17,13 +17,13 @@ The current memory toggle also removes prior dialogue from generation context. C
 
 Save each input and reply alongside its available memories, cited sources and selected action. Include the playback outcome and enough configuration information to reproduce the run. Check whether the reply is faithful to its source and respects an explicit boundary. Keep failures and retries in the record.
 
-For user experience, select measures of perceived recognition, appropriateness, intrusiveness and willingness to continue the interaction. Explain how the measures are operationalized and use suitable established instruments where available. Brief post-interaction interviews can help distinguish “it recalled a fact” from “the response felt personally meaningful.” Do not label newly drafted questions as a validated scale.
+The proposed study would assess perceived recognition, appropriateness, intrusiveness and willingness to continue the interaction. Each measure would be defined using established instruments where appropriate; any new questions would be identified as study-specific items. Brief post-interaction interviews could help distinguish “it recalled a fact” from “the response felt personally meaningful.”
 
 Internal PPR labels, personality trajectories and heuristic confidence scores should be analyzed separately from participant reports. Agreement between them is a question to investigate. The software tests verify implementation behavior and cannot substitute for those reports.
 
 ## Before a participant study
 
-Specify the primary question and outcome, participant tasks, condition assignment and ordering, failure handling and analysis plan. Plan sample size from the design rather than selecting an arbitrary number. Repeated sessions are needed for claims about adaptation over time. Complete the applicable participant-research review before recruitment, and establish what personal information will be collected and retained.
+Before recruitment, the study protocol would define the primary question, outcome and participant tasks. It would also specify condition assignment and order, failure handling and the analysis plan. Sample size would follow the study design, with repeated sessions for examining adaptation over time. The protocol would undergo the applicable participant-research review and specify what personal information would be collected and retained.
 
 ## Near-term implementation priorities
 
