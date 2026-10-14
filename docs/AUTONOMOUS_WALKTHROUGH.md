@@ -25,7 +25,7 @@ Open **Inspect this turn** and examine the result:
 | Evidence | What to check |
 | --- | --- |
 | Reply | Does it accurately refer to sketching birds by the river? Does it introduce unsupported details? |
-| Source record | Is the saved detail listed as used, with its record ID? A candidate alone does not mean the reply used it. |
+| Source record | Which saved details are listed as used, and what are their record IDs? |
 | Performance plan | Which action, intent and expression were selected? Is their intensity appropriate to the exchange? |
 | Playback | With a configured character, did expression start and complete? If unavailable or failed, preserve that result. |
 
@@ -39,7 +39,7 @@ In the same account, send:
 
 Check that the reply acknowledges the boundary without repeating the saved detail. In the inspector, retrieval should be disabled for this turn and there should be no used memories. The current restricted plan uses the `boundary` intent, `listening` action, neutral face, hidden ears and movement intensity no greater than 0.25. These are policy constraints; inspect the generated wording separately.
 
-This scenario demonstrates refusal handling for the current input and the bounded recent dialogue history. It does not demonstrate permanent forgetting or a persistent “never mention this again” preference. The autonomous route does not delete the saved memory or write a lasting boundary update. Once the refusal falls outside the history window, a later unrestricted request may retrieve it again.
+The refusal guard checks the current input and recent dialogue history. The saved memory remains in storage and becomes eligible for retrieval again once the refusal leaves that history window.
 
 ## Suggested recording sequence
 
@@ -52,4 +52,4 @@ Record the repository revision, model/provider configuration without secrets, ru
 
 ## Optional comparison
 
-A separate fresh account can be used to try the first request with memory disabled. In the current implementation, that switch also omits conversation history from the model input. It is therefore a demonstration of a different context condition, not a clean memory-only experiment. See [Evaluation notes](EVALUATION.md) before interpreting differences as an effect of memory.
+A separate fresh account can be used to try the first request with memory disabled. This switch removes both saved memories and conversation history from the model input. The [evaluation plan](EVALUATION.md) describes comparisons that hold prior dialogue constant while varying memory retrieval.

@@ -77,7 +77,7 @@ Tests use synthetic fixtures and temporary databases. They cover memory boundari
 
 ## Current limitations
 
-Retrieval and generation can misinterpret a memory. Source IDs help trace a response but do not verify its meaning. The autonomous page saves new long-term memories only through its explicit memory form.
+Source IDs link a response to its retrieved records. The autonomous page saves new long-term memories through its explicit memory form.
 
 The project is implemented in JavaScript with Node.js, Express, SQLite and Live2D.
 

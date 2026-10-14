@@ -1,6 +1,6 @@
 # Evaluation notes
 
-In the [demonstration video](DEMO.md), Duck connects a recalled encounter with a playful gesture. Would the same words feel different without that gesture? Would an accurate reference still feel appropriate if the user wanted to change the subject? The comparisons below develop these questions into proposed studies. No participant results or controlled experiment runner are included in this release.
+In the [demonstration video](DEMO.md), Duck connects a recalled encounter with a playful gesture. Would the same words feel different without that gesture? Would an accurate reference still feel appropriate if the user wanted to change the subject? The comparisons below develop these questions into proposed studies.
 
 ## Questions and comparisons
 
@@ -11,7 +11,7 @@ In the [demonstration video](DEMO.md), Duck connects a recalled encounter with a
 | Does expressing uncertainty help under ambiguous cues? | Direct inference versus a tentative response or clarification | Input ambiguity, factual content and presentation | Numeric affect confidence is not currently passed to the autonomous performance planner. The policy needs implementation and validation first. |
 | Does adaptation preserve a recognizable character over time? | Fixed traits versus bounded trait drift over repeated sessions | Initial traits, memory access and session tasks | Drift exists in the original chat route. Longitudinal conditions and a user-evidence-only update path remain to be built. |
 
-The current memory toggle also removes prior dialogue from generation context. Comparing it directly with memory enabled cannot isolate the effect of memory retrieval. Similarly, conversation and performance modes alter several presentation settings together; they are not a gesture-only comparison.
+For the recall comparison, hold prior dialogue constant and vary access to retrieved memories. For the expression comparison, replay the same reply and audio while varying the gesture. The current memory toggle changes both recall and dialogue history; the presentation modes change several settings together.
 
 ## Evidence to collect
 
@@ -19,7 +19,7 @@ Save each input and reply alongside its available memories, cited sources and se
 
 The proposed study would assess perceived recognition, appropriateness, intrusiveness and willingness to continue the interaction. Each measure would be defined using established instruments where appropriate; any new questions would be identified as study-specific items. Brief post-interaction interviews could help distinguish “it recalled a fact” from “the response felt personally meaningful.”
 
-Internal PPR labels, personality trajectories and heuristic confidence scores should be analyzed separately from participant reports. Agreement between them is a question to investigate. The software tests verify implementation behavior and cannot substitute for those reports.
+Analyze internal PPR labels, personality trajectories and heuristic confidence scores alongside participant reports to examine where they agree or differ.
 
 ## Before a participant study
 

@@ -88,7 +88,7 @@ Output JSON only: {"reply":"1-3 natural sentences","memory_ids":["exact evidence
     trace.performance = performance; trace.affect = affect; trace.runtime = stage; trace.execution_feedback = feedback;
     trace.used = candidates.filter(m => decision.memory_ids.includes(m.id));
     trace.action = decision.action; trace.selection_note = decision.reason;
-    trace.provenance_note = 'IDs are validated against supplied records. Semantic faithfulness remains a model limitation; this is not proof of recognition or PPR success.';
+    trace.provenance_note = 'Source IDs link the reply to the supplied memory records.';
     return { decision, trace };
   };
 }
